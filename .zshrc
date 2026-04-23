@@ -111,23 +111,16 @@ alias lazy='cat ~/.bashrc | grep -i'
 alias ip="ip -c"
 # -G color output, -F slash after pathname, -q force printing ? for non graphic chars
 alias ll="ls -GalFq"
-alias k="kubectl"
-alias kgp="kubectl get pods"
 alias d='docker'
 alias dc='docker compose'
 alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
 alias myip='curl -s ipinfo.io'
-#alias EM='export KUBECONFIG=".kube/config"'
-#alias EK='export KUBECONFIG="/etc/rancher/k3s/k3s.yaml"'
-alias haselka="keepassxc-cli open /mnt/google_drive/DB/DB-Mikele.kdbx"
 usb=/mnt/mikele_usb
 ssd=/mnt/mikele_ssd
 monitor=/persistent_volumes/monitor
 dirigera=/repositories/dirigera/app/storage
 google=$ssd/GoogleDrive
 export tmp=/home/user/Downloads/tmp
-# this must be a script to make it accessible from ssh
-#alias tm='[[ $(tmux ls | wc -l) -eq 0 ]] && tmux || tmux attach-session'
 alias de="tmux detach"
 alias tmls="tmux list-sessions"
 alias vi=nvim
@@ -140,15 +133,6 @@ alias ytdl='docker run \
                   -e PUID=$(id -u) \
                   -v /persistent_volumes/ytdl/mp4:/workdir:z \
                   mikenye/youtube-dl'
-#alias ytdl='docker run \
-#    --rm -i \
-#    -e PGID=$(id -g) \
-#    -e PUID=$(id -u) \
-#    -v /persistent_volumes/ytdl/mp4:/workdir:z \
-#    -v /persistent_volumes/ytdl/setup_route.sh:/setup_route.sh:z \
-#    --network surfshark_bridge_net \
-#    --entrypoint /setup_route.sh \
-#    mikenye/youtube-dl'
 
 alias mp4tomp3='function _mp4tomp3(){ ffmpeg -i "$1" -q:a 0 -map a "$2"; }; _mp4tomp3'
 alias lsblk='lsblk --output NAME,FSTYPE,LABEL,SIZE,FSAVAIL,FSUSE%,MOUNTPOINTS'
@@ -160,7 +144,6 @@ alias rp=realpath
 
 export EDITOR=nvim
 export VISUAL=nvim
-export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
 echo "\
 192.168.0.1/24  <- def gw
@@ -178,7 +161,4 @@ echo "\
 - - - - - - - - - - - - - - -"
 
 export PATH="$HOME/.npm-global/bin:$PATH"
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
 
