@@ -1,0 +1,11 @@
+# ignore everything
+*
+!.gitignore
+
+# allow directories
+#!*/
+
+!.zshrc
+!.tmux.conf
+!.config/mc/**
+!.config/nvim/**
