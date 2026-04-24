@@ -111,7 +111,7 @@ alias rp=realpath
 export EDITOR=nvim
 export VISUAL=nvim
 
-export PATH="/home/user/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 
 #############################################################
