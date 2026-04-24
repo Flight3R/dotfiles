@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Directories
+SOURCE_DIR="/persistent_volumes/ytdl/mp4"
+DEST_DIR="/persistent_volumes/ytdl"
+
+# Ensure destination directory exists
+mkdir -p "$DEST_DIR"
+
+# Loop over all .mp4 files in the source directory
+for mp4_file in "$SOURCE_DIR"/*.mp4; do
+    # Extract filename without extension
+    filename=$(basename -- "$mp4_file")
+    title="${filename%.*}"
+
+    # Define output file path
+    mp3_file="$DEST_DIR/$title.mp3"
+
+    # Convert .mp4 to .mp3 using ffmpeg
+    ffmpeg -i "$mp4_file" -q:a 0 -map a "$mp3_file"
+done
+

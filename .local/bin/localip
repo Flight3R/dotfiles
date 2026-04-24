@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ip address show dev end0 | awk '/inet / {print $2}' | cut -d/ -f 1
+

@@ -1,0 +1,61 @@
+#!/bin/bash
+
+REPOS_DIR="/repositories"
+
+# Get the length of the longest repository name
+max_length=0
+for dir in "$REPOS_DIR"/*; do
+    repo_name=$(basename "$dir")
+    name_length=${#repo_name}
+    if (( name_length > max_length )); then
+        max_length=$name_length
+    fi
+done
+
+# Add padding to column
+padding=2
+column_width=$((max_length + padding))
+
+# Print headers
+printf "%-${column_width}s %s\n" "Repository" "Status"
+printf "%-${column_width}s %s\n" "$(head -c "$max_length" < <(printf '%*s' "$max_length" '' | tr ' ' '-'))" "------"
+
+# Loop through repos (include scripts dir)
+for dir in "$REPOS_DIR"/*; do
+    repo_name=$(basename "$dir")
+
+    if [ -d "$dir/.git" ]; then
+        cd "$dir" || continue
+        git fetch origin &>/dev/null
+        branch=$(git rev-parse --abbrev-ref HEAD)
+
+        # Check for uncommitted changes
+        if ! git diff --quiet || ! git diff --cached --quiet; then
+            uncommitted="uncommitted changes"
+        else
+            uncommitted=""
+        fi
+
+        if git rev-parse --abbrev-ref --symbolic-full-name "@{u}" &>/dev/null; then
+            ahead=$(git rev-list --left-right --count origin/"$branch"...HEAD | awk '{print $2}')
+            if [ "$ahead" -eq 0 ]; then
+                status="all commits pushed"
+            else
+                status="$ahead commit(s) not pushed to origin/$branch"
+            fi
+        else
+            status="branch '$branch' not tracking a remote"
+        fi
+
+        cd - &>/dev/null
+
+        if [ -n "$uncommitted" ]; then
+            status="$status, $uncommitted"
+        fi
+    else
+        status="not a git repository"
+    fi
+
+    printf "%-${column_width}s %s\n" "$repo_name" "$status"
+done
+

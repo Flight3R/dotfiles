@@ -1,0 +1,22 @@
+#!/bin/bash
+
+TARGET="example.com"
+MESSAGE="Warning: Successful ping to ${TARGET} detected."
+
+# Try a single ping quietly
+if ping -c 1 -W 1 "$TARGET" >/dev/null 2>&1; then
+    # Ping succeeded
+    echo "=================================================="
+    echo "$MESSAGE"
+    echo "=================================================="
+
+    # Append to ~/.zshrc only if the message isn't already present
+    if ! grep -Fxq "echo \"$MESSAGE\"" ~/.zshrc; then
+        echo "echo \"==================================================\"" >> ~/.zshrc
+        echo "echo \"$MESSAGE\"" >> ~/.zshrc
+        echo "echo \"==================================================\"" >> ~/.zshrc
+    fi
+else
+    echo "Everything ok."
+fi
+

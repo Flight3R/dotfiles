@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ "$1" = "1" ]; then
+    ssh guestap "
+        uci set wireless.radio0.disabled=0
+        uci commit wireless
+        wifi reload
+    "
+elif [ "$1" = "0" ]; then
+    ssh guestap "
+        uci set wireless.radio0.disabled=1
+        uci commit wireless
+        wifi reload
+    "
+else
+    echo "Usage: $0 {1|0}"
+    echo "Enables/disables Guest Access Point."
+    exit 1
+fi
+

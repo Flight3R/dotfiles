@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "This script does nothing."
+echo "Doing nothing..."
+sleep 2
+echo "Done."

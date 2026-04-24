@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Docker Registry URL
+REGISTRY_URL="127.0.0.1:5000"
+
+# Get a list of all repositories in the registry
+repositories=$(curl -s "http://${REGISTRY_URL}/v2/_catalog" | jq -r '.repositories[]')
+
+# Iterate through each repository and delete all tags
+for repo in $repositories; do
+  tags=$(curl -s "http://${REGISTRY_URL}/v2/${repo}/tags/list" | jq -r '.tags[]')
+
+  for tag in $tags; do
+    # Delete the image by digest to ensure all tags are removed
+    digest=$(curl -sI "http://${REGISTRY_URL}/v2/${repo}/manifests/${tag}" | grep -i "docker-content-digest" | cut -d' ' -f2 | tr -d '\r')
+    curl -X DELETE "http://${REGISTRY_URL}/v2/${repo}/manifests/${digest}" > /dev/null 2>&1
+    echo "Deleted: ${repo}:${tag}"
+  done
+done
+
+echo "All images removed from Docker registry at ${REGISTRY_URL}"

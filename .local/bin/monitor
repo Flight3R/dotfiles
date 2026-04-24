@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <key> <value>"
+    exit 1
+fi
+
+KEY="$1"
+VALUE="$2"
+FILE="/persistent_volumes/monitor/config.json"
+
+# Check if key exists
+if ! jq -e --arg k "$KEY" 'has($k)' "$FILE" > /dev/null; then
+    echo "Error: Key '$KEY' does not exist in $FILE"
+    exit 1
+fi
+
+# Update key
+jq --arg k "$KEY" --arg v "$VALUE" '.[$k] = $v' "$FILE" > "${FILE}.tmp" && mv "${FILE}.tmp" "$FILE"
+echo "Updated '$KEY' to '$VALUE' in $FILE"
+

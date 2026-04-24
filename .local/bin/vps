@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Restarting vps..."
+ssh vps sudo systemctl restart wg-quick@wg0
+echo "Done."

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+tmux new-session -s tm bash -c "echo '$*'; $*; bash"
+

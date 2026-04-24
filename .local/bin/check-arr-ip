@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Define the list of container names
+containers=(
+    qbittorrent
+    prowlarr
+    sonarr
+    radarr
+    lidarr
+    bazarr
+    jellyfin
+)
+
+# Loop over each container and fetch hostname and IP info
+for container in "${containers[@]}"; do
+    docker exec "$container" sh -c 'hostname; curl -s ipinfo.io | jq -r ".ip + \" \" + .country + \" \" + .city"'
+done
+

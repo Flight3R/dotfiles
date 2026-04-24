@@ -1,0 +1,17 @@
+#!/bin/bash
+
+REGISTRY_URL="192.168.0.2:5000"
+
+repositories=$(curl -s -X GET "${REGISTRY_URL}/v2/_catalog" | jq -r '.repositories[]')
+
+for repo in $repositories; do
+    
+    tags=$(curl -s -X GET "${REGISTRY_URL}/v2/${repo}/tags/list" | jq -r '.tags[]')
+    
+    for tag in $tags; do
+        echo "$repo:$tag"
+    done
+    
+    echo  # formatting
+done
+

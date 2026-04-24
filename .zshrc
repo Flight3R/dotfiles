@@ -11,7 +11,7 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-
+export PATH="/home/user/.local/bin:$PATH"
 #############################################################
 #                         PROMPT
 #############################################################
@@ -72,35 +72,6 @@ alias gr="git reflog -10"
 alias glr="git log --oneline --reflog -10"
 
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
-# SCRIPTS ALIASES
-SCRIPTS_ROOT="/home/user/scripts"
-alias lls="ll $SCRIPTS_ROOT"
-alias generate-aliases="ls $SCRIPTS_ROOT | xargs -i echo \"alias {}=\$SCRIPTS_ROOT/{}; alias {}-e='vi \$SCRIPTS_ROOT/{}'\""
-
-alias after-start=/home/user/scripts/after-start; alias after-start-e='vi /home/user/scripts/after-start'
-alias charger=/home/user/scripts/charger; alias charger-e='vi /home/user/scripts/charger'
-alias check-arr-ip=/home/user/scripts/check-arr-ip; alias check-arr-ip-e='vi /home/user/scripts/check-arr-ip'
-alias check-play=/home/user/scripts/check-play; alias check-play-e='vi /home/user/scripts/check-play'
-alias check-repos=/home/user/scripts/check-repos; alias check-repos-e='vi /home/user/scripts/check-repos'
-alias clear-registry=/home/user/scripts/clear-registry; alias clear-registry-e='vi /home/user/scripts/clear-registry'
-alias comment-generate=/home/user/scripts/comment-generate; alias comment-generate-e='vi /home/user/scripts/comment-generate'
-alias docker-clean=/home/user/scripts/docker-clean; alias docker-clean-e='vi /home/user/scripts/docker-clean'
-alias forward=/home/user/scripts/forward; alias forward-e='vi /home/user/scripts/forward'
-alias forward-clear=/home/user/scripts/forward-clear; alias forward-clear-e='vi /home/user/scripts/forward-clear'
-alias freeram=/home/user/scripts/freeram; alias freeram-e='vi /home/user/scripts/freeram'
-alias graphical-start=/home/user/scripts/graphical-start; alias graphical-start-e='vi /home/user/scripts/graphical-start'
-alias graphical-stop=/home/user/scripts/graphical-stop; alias graphical-stop-e='vi /home/user/scripts/graphical-stop'
-alias guestap=/home/user/scripts/guestap; alias guestap-e='vi /home/user/scripts/guestap'
-alias list-registry=/home/user/scripts/list-registry; alias list-registry-e='vi /home/user/scripts/list-registry'
-alias list-registry-tags=/home/user/scripts/list-registry-tags; alias list-registry-tags-e='vi /home/user/scripts/list-registry-tags'
-alias localip=/home/user/scripts/localip; alias localip-e='vi /home/user/scripts/localip'
-alias lock-ssd=/home/user/scripts/lock-ssd; alias lock-ssd-e='vi /home/user/scripts/lock-ssd'
-alias mp4conv=/home/user/scripts/mp4conv; alias mp4conv-e='vi /home/user/scripts/mp4conv'
-alias remove-registry=/home/user/scripts/remove-registry; alias remove-registry-e='vi /home/user/scripts/remove-registry'
-alias tm=/home/user/scripts/tm; alias tm-e='vi /home/user/scripts/tm'
-alias tmp=/home/user/scripts/tmp; alias tmp-e='vi /home/user/scripts/tmp'
-alias vps=/home/user/scripts/vps; alias vps-e='vi /home/user/scripts/vps'
 
 # MISC ALIASES
 alias cdrepos='cd /repositories'

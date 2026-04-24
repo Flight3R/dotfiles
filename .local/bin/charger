@@ -1,0 +1,14 @@
+#!/bin/env bash
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <device_name> <time>"
+    echo "Example: $0 Charger2 '10m'"
+    exit 1
+fi
+
+DEVICE="$1"
+TIME_STR="$2"
+
+curl -s http://192.168.0.21/device/${DEVICE}/on
+echo "curl -s http://192.168.0.21/device/${DEVICE}/off" | at now + "${TIME_STR}"
+

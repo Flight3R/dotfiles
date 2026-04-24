@@ -1,0 +1,18 @@
+#!/bin/bash
+
+session_name="NETWORK"
+if [[ -n $(sudo tmux list-sessions | grep $session_name) ]]
+then
+    set -x
+    sudo tmux kill-session -t $session_name
+    sudo iptables -t nat -D POSTROUTING -o eth2 -j MASQUERADE
+    sudo iptables -t nat -D POSTROUTING -o wlan0 -j MASQUERADE
+    sudo sysctl -w net.ipv4.ip_forward=0
+    set +x
+    echo "Forward cleared!"
+
+    LOG_FILE=$(/home/user/scripts/get-log-file)
+    echo $(date) -- forward cleared >> $LOG_FILE
+else
+    echo "Forward settings does not exist! Quitting..."
+fi

@@ -1,0 +1,89 @@
+#!/bin/bash
+
+# Usage check
+if [ $# -ne 1 ] && [ $# -ne 2 ]; then
+    echo "Usage: $0 {mikele|storage|arrsuite|pen} [device_suffix] (e.g., sda1 (see: lsblk))"
+    exit 1
+fi
+
+TARGET=$1
+
+# device_suffix not passed, autodeducing
+if [ $# -eq 1 ]; then
+    DEVICE_SUFFIX=$(lsblk -l -o NAME,LABEL | awk -v tgt="$TARGET" '($2 ~ tgt) {print $1; exit}')
+    DEVICE="/dev/${DEVICE_SUFFIX}"
+    if [ -z "$DEVICE_SUFFIX" ]; then
+        echo "No device found matching target: $TARGET"
+        exit 1
+    fi
+    read -p "Found device matching target: $DEVICE; use it? (Y/n): " choice
+    choice=${choice:-Y}
+    if ! [[ "$choice" =~ ^[Yy]$ ]]; then
+            echo "Nothing done."
+            exit 1
+    fi
+else
+    DEVICE_SUFFIX=$2
+    DEVICE="/dev/${DEVICE_SUFFIX}"
+fi
+
+# Set mount directory based on first argument
+case $TARGET in
+    mikele)
+        MOUNT_DIR=/mnt/mikele_ssd
+        ;;
+    storage)
+        MOUNT_DIR=/mnt/storage_ssd
+        ;;
+    arrsuite)
+        MOUNT_DIR=/mnt/arrsuite_ssd
+        ;;
+    pen)
+        MOUNT_DIR=/mnt/mikele_pen
+        ;;
+    *)
+        echo "Invalid target: $TARGET."
+        exit 1
+        ;;
+esac
+
+# Check if mount directory exists, create if not
+if [ -d "$MOUNT_DIR" ]; then
+    echo "Mount directory exists: ${MOUNT_DIR}."
+else
+    echo "Creating mount directory: ${MOUNT_DIR}..."
+    sudo mkdir -p "$MOUNT_DIR"
+    sudo chown -R user:user "$MOUNT_DIR"
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to create mount directory."
+        exit 1
+    fi
+    echo "Done."
+fi
+
+# Mount device to mount directory
+echo "Mounting ${DEVICE} to ${MOUNT_DIR}..."
+sudo mount -o uid=1000,gid=1000 "$DEVICE" "$MOUNT_DIR" || sudo mount "$DEVICE" "$MOUNT_DIR"
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to mount ${DEVICE} to ${MOUNT_DIR}."
+    exit 1
+fi
+
+echo "Done."
+
+# Prompt for Samba restart
+if [ "$TARGET" = "mikele" ] || [ "$TARGET" = "storage" ]; then
+    read -p "Restart Samba service? (Y/n): " choice
+    choice=${choice:-Y}
+
+    if [[ "$choice" =~ ^[Yy]$ ]]; then
+        echo "Restarting Samba service..."
+        sudo systemctl restart smb
+        if [ $? -ne 0 ]; then
+            echo "Error: Failed to restart Samba service."
+            exit 1
+        fi
+        echo "Done."
+    fi
+fi
+

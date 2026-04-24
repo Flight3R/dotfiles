@@ -1,0 +1,38 @@
+#!/bin/bash
+function my_exit()
+{
+    echo "usage: $0 {cpp|pyt} <text_in_comment>"
+    exit
+}
+
+if [[ $# -ne 2 ]]
+then
+    my_exit
+else
+    case $1 in
+        cpp)
+            delimiter="***********************************************************"
+            comment_sign="//"
+            additional_fill=""
+            extra_comment=""
+            ;;
+        pyt)
+            delimiter="###########################################################"
+            comment_sign="#"
+            additional_fill=" "
+            extra_comment="#"
+            ;;
+        *)
+            my_exit
+            ;;
+
+    esac
+    text=$2
+    length_of_text=${#text}
+    length_of_delimiter=${#delimiter}
+    length_of_additional=${#additional_fill}
+    length_of_fillment=$((($length_of_delimiter - $length_of_text) / 2-1))
+    echo "$comment_sign$extra_comment$delimiter"
+    python -c "print('$comment_sign$additional_fill',end=''); print(' ' * $length_of_fillment,end=''); print('$text');"
+    echo "$comment_sign$extra_comment$delimiter"
+fi
