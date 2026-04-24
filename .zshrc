@@ -85,14 +85,16 @@ alias dc='docker compose'
 alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
 
 alias myip='curl -s ipinfo.io'
+
 usb=/mnt/mikele_usb
 ssd=/mnt/mikele_ssd
 alias cdtmp='cd $HOME/Downloads/tmp'
 export tmp=$HOME/Downloads/tmp
+
 alias de="tmux detach"
-alias tmls="tmux list-sessions"
 alias vi=nvim
 alias rp=realpath
+alias lls="ll $HOME/.local/bin"
 
 #sudo chown -R user:user /persistent_volumes/ytd
 alias ytdl='docker run \
@@ -104,7 +106,6 @@ alias ytdl='docker run \
 
 alias mp4tomp3='function _mp4tomp3(){ ffmpeg -i "$1" -q:a 0 -map a "$2"; }; _mp4tomp3'
 alias lsblk='lsblk --output NAME,FSTYPE,LABEL,SIZE,FSAVAIL,FSUSE%,MOUNTPOINTS'
-alias rp=realpath
 
 #############################################################
 #                         	OTHER

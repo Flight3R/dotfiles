@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+# Check if a filename was provided
+if [[ -z "$1" ]]; then
+    echo "Usage: edit <filename>"
+    exit 1
+fi
+
+FILE="$1"
+
+# Open file in nvim
+exec nvim $HOME/.local/bin/$FILE
