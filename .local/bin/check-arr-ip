@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Define the list of container names
 containers=(

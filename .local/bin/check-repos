@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 REPOS_DIR="/repositories"
 

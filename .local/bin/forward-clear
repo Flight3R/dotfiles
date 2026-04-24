@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 session_name="NETWORK"
 if [[ -n $(sudo tmux list-sessions | grep $session_name) ]]

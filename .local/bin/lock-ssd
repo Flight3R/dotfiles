@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Usage check
 if [ $# -ne 1 ] && [ $# -ne 2 ]; then

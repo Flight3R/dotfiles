@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 read -p "Run after-start procedure? (Y/n): " choice
 choice=${choice:-Y}

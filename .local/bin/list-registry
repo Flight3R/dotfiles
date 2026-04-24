@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 REGISTRY_URL="192.168.0.2:5000"
 

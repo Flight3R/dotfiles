@@ -1,2 +1,2 @@
-#!/bin/bash
-[[ $(tmux ls | wc -l) -eq 0 ]] && tmux new-session "date; zsh" || tmux attach-session
+#!/bin/zsh
+tmux has-session 2>/dev/null && tmux attach || tmux new-session "date; zsh"

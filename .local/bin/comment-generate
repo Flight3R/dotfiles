@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 function my_exit()
 {
     echo "usage: $0 {cpp|pyt} <text_in_comment>"

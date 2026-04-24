@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Directories
 SOURCE_DIR="/persistent_volumes/ytdl/mp4"

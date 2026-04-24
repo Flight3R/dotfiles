@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/bin/zsh
 sudo systemctl start multi-user.target

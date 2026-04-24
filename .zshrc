@@ -38,7 +38,8 @@ BLUE='%F{blue}'
 GREEN='%F{green}'
 MAGENTA='%F{magenta}'
 RESET='%f'
-# PROMPT definition in LOCAL section
+# Override default PROMPT in LOCAL section
+PROMPT='%B${RED}[${RESET}${BLUE}%n@%m${RESET} (%*) %~${RED}]${RESET}${vcs_info_msg_0_} > %b'
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
@@ -117,4 +118,4 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 #############################################################
 #                         LOCAL
 #############################################################
-source $HOME/.zshrc.local
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"

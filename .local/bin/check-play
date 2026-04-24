@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 TARGET="example.com"
 MESSAGE="Warning: Successful ping to ${TARGET} detected."
