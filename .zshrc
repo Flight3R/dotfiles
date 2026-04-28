@@ -71,9 +71,14 @@ alias gbc="git branch --show-current"
 alias gr="git reflog -10"
 alias glr="git log --oneline --reflog -10"
 
-# MISC ALIASES
+# DOTFILES ALIASES
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dfa="dotfiles add"
+alias dfc="dotfiles commit"
+alias dfs="dotfiles status"
+alias dfd="dotfiles diff"
 
+# MISC ALIASES
 alias cdrepos='cd /repositories'
 alias se='source .env/bin/activate'
 alias ip="ip -c"
@@ -94,6 +99,8 @@ export tmp=$HOME/Downloads/tmp
 alias de="tmux detach"
 alias vi=nvim
 alias rp=realpath
+alias bn=basename
+alias dn=dirname
 alias lls="ll $HOME/.local/bin"
 
 #sudo chown -R user:user /persistent_volumes/ytd
