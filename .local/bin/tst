@@ -2,4 +2,5 @@
 echo "This script does nothing."
 echo "Doing nothing..."
 sleep 2
+touch /home/user/test_script_executed
 echo "Done."
