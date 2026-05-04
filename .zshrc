@@ -80,7 +80,7 @@ alias dfd="dotfiles diff"
 
 # MISC ALIASES
 alias cdrepos='cd /repositories'
-alias se='source .env/bin/activate'
+alias se='source venv/bin/activate'
 alias ip="ip -c"
 # -G color output, -F slash after pathname, -q force printing ? for non graphic chars
 alias ll="ls -GalFq"
@@ -88,6 +88,7 @@ alias ll="ls -GalFq"
 alias d='docker'
 alias dc='docker compose'
 alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
+alias dpsa='dps -a'
 
 alias myip='curl -s ipinfo.io'
 

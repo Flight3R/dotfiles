@@ -20,7 +20,7 @@ column_width=$((max_length + padding))
 printf "%-${column_width}s %s\n" "Repository" "Status"
 printf "%-${column_width}s %s\n" "$(head -c "$max_length" < <(printf '%*s' "$max_length" '' | tr ' ' '-'))" "------"
 
-# Loop through repos (include scripts dir)
+# Loop through repos 
 for dir in "$REPOS_DIR"/*; do
     repo_name=$(basename "$dir")
 
@@ -39,23 +39,23 @@ for dir in "$REPOS_DIR"/*; do
         if git rev-parse --abbrev-ref --symbolic-full-name "@{u}" &>/dev/null; then
             ahead=$(git rev-list --left-right --count origin/"$branch"...HEAD | awk '{print $2}')
             if [ "$ahead" -eq 0 ]; then
-                status="all commits pushed"
+                git_status="all commits pushed"
             else
-                status="$ahead commit(s) not pushed to origin/$branch"
+                git_status="$ahead commit(s) not pushed to origin/$branch"
             fi
         else
-            status="branch '$branch' not tracking a remote"
+            git_status="branch '$branch' not tracking a remote"
         fi
 
         cd - &>/dev/null
 
         if [ -n "$uncommitted" ]; then
-            status="$status, $uncommitted"
+            git_status="$git_status, $uncommitted"
         fi
     else
-        status="not a git repository"
+        git_status="not a git repository"
     fi
 
-    printf "%-${column_width}s %s\n" "$repo_name" "$status"
+    printf "%-${column_width}s %s\n" "$repo_name" "$git_status"
 done
 

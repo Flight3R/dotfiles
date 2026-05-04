@@ -16,8 +16,8 @@ echo "-- Remove garbage from /mnt/arrsuite IF NOT MOUNTED:"
 echo "rm -rf /mnt/arrsuite_ssd/*"
 
 echo "-- Mount any necessary external drive:"
-echo "lock-ssd mikele"
-echo "lock-ssd arrsuite"
+echo "ssd-lock mikele"
+echo "ssd-lock arrsuite"
 
 echo "-- Check /mnt/arrsuite_ssd and allow access:"
 echo "ll -Z /mnt/arrsuite_ssd"

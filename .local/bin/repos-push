@@ -1,0 +1,9 @@
+xargs -I{} sh -c '(cd "{}" && git add . && git commit -m ".env -> venv" && git push)' <<EOF
+compare_server
+file_server
+grep_server
+paste_server
+waypoints
+EOF
+
+
