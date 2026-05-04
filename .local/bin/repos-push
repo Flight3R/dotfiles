@@ -1,9 +1,23 @@
-xargs -I{} sh -c '(cd "{}" && git add . && git commit -m ".env -> venv" && git push)' <<EOF
-compare_server
-file_server
-grep_server
-paste_server
-waypoints
+#!/bin/zsh
+# 1. Run repos-check command
+# 2. Copy its output and open this script
+# 3. Select pasted output
+# 4. :v/uncommitted/d
+# 5. ctrl+b remove rest
+xargs -I{} sh -c 'cd {} && git add . && git commit -m ".env -> venv" && git push' <<EOF
+arr_suite         
+compare_server    
+dirigera_server   
+echoserver        
+file_server       
+firewall          
+grep_server       
+monitor           
+paste_server      
+pihole            
+surfshark         
+waypoints         
+weather_server    
 EOF
 
 
