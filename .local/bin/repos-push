@@ -4,20 +4,12 @@
 # 3. Select pasted output
 # 4. :v/uncommitted/d
 # 5. ctrl+b remove rest
-xargs -I{} sh -c 'cd {} && git add . && git commit -m ".env -> venv" && git push' <<EOF
-arr_suite         
-compare_server    
-dirigera_server   
-echoserver        
-file_server       
-firewall          
-grep_server       
-monitor           
-paste_server      
-pihole            
-surfshark         
-waypoints         
-weather_server    
+xargs -I{} sh -c 'cd {} && git add . && git commit -m "env refactor" && git push' <<EOF
+arr_suite       
+dirigera_server 
+file_server     
+pihole          
+waypoints       
 EOF
 
 
