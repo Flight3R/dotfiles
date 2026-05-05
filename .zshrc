@@ -77,6 +77,8 @@ alias dfa="dotfiles add"
 alias dfc="dotfiles commit"
 alias dfs="dotfiles status"
 alias dfd="dotfiles diff"
+alias dfc="dotfiles commit"
+alias dfp="dotfiles push"
 
 # MISC ALIASES
 alias cdrepos='cd /repositories'

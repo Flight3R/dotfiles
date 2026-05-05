@@ -1,0 +1,11 @@
+#!/bin/zsh
+# find . -name docker-compose.yaml | xargs grep -l 'latest' | xargs dirname | xargs realpath
+xargs -I{} sh -c '
+cd {} &&
+docker compose pull && 
+docker compose restart'<<EOF
+/repositories/arr_suite
+/repositories/pihole
+/repositories/firewall
+/repositories/echoserver
+EOF
