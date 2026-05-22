@@ -14,6 +14,7 @@ compinit
 #############################################################
 #                         PROMPT
 #############################################################
+# Fzf history bind to ctrl+r
 setopt HIST_IGNORE_ALL_DUPS
 fzf-history-widget() {
     BUFFER=$(fc -l -n 1 | fzf --tac --query="$LBUFFER")
@@ -23,10 +24,11 @@ fzf-history-widget() {
 zle -N fzf-history-widget
 bindkey '^R' fzf-history-widget
 
+# Zsh autosuggestions and command comppletion 
 zstyle ':completion:*' menu select
-
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# Edit command with ctrl+x+e in editor (nvim)
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
@@ -38,14 +40,24 @@ BLUE='%F{blue}'
 GREEN='%F{green}'
 MAGENTA='%F{magenta}'
 RESET='%f'
-# Override default PROMPT in LOCAL section
+# Default prompt (override in .zshrc.local file)
 PROMPT='%B${RED}[${RESET}${BLUE}%n@%m${RESET} (%*) %~${RED}]${RESET}${vcs_info_msg_0_} > %b'
 
+# Git branch in prompt
 autoload -Uz vcs_info
 precmd() { vcs_info }
 setopt prompt_subst
 zstyle ':vcs_info:git:*' formats '(%b)'
 
+# Auto resume job in background after ctrl+z
+autoload -Uz add-zsh-hook
+_auto_bg_stopped_job() {
+  emulate -L zsh
+  if jobs -s >/dev/null 2>&1; then
+    bg %+ >/dev/null 2>&1
+  fi
+}
+add-zsh-hook precmd _auto_bg_stopped_job
 #############################################################
 #                         ALIASES
 #############################################################
