@@ -1,31 +1,31 @@
 #!/bin/zsh
 
-read -p "Run after-start procedure? (Y/n): " choice
+printf "Run after-start procedure? (Y/n): "
+read choice
 choice=${choice:-Y}
 if [[ "$choice" =~ ^[Yy]$ ]]; then
     echo "Setting up macvlan to connect server with 192.168.0.16/28 network..."
     sudo ip link add macvlan link end0 type macvlan mode bridge; sudo ip addr add 192.168.0.18/28 dev macvlan; sudo ip link set macvlan up
-    sudo firewall-cmd --add-interface=macvlan --zone=FedoraWorkstation
+    sudo firewall-cmd --add-interface=macvlan --zone=FedoraServer
     echo "Done."
 fi
 
-echo "-- Check /mnt/arrsuite_ssd:"
-echo "tree /mnt/arrsuite_ssd"
-
-echo "-- Remove garbage from /mnt/arrsuite IF NOT MOUNTED:"
-echo "rm -rf /mnt/arrsuite_ssd/*"
-
 echo "-- Mount any necessary external drive:"
 echo "ssd-lock mikele"
+echo "ssd-lock pv"
 echo "ssd-lock arrsuite"
 
 echo "-- Check /mnt/arrsuite_ssd and allow access:"
+echo "ll -Z /mnt/mikele_ssd"
+echo "ll -Z /mnt/persistent_volumes"
 echo "ll -Z /mnt/arrsuite_ssd"
 
 echo "-- Allow access for arrsuite to the files:"
+echo "sudo chcon -Rt svirt_sandbox_file_t /mnt/persistent_volumes"
 echo "sudo chcon -Rt svirt_sandbox_file_t /mnt/arrsuite_ssd"
 
 echo "-- Start arrsuite"
-echo "cd /repositories/arr_suite && docker dompose start"
+echo "(cd ~/repos/arr_suite && docker dompose up -d)"
+echo "(cd ~/repos/waypoints && docker dompose up -d)"
 
 echo "After-start procedure complete."

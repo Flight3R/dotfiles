@@ -26,6 +26,7 @@ bindkey '^R' fzf-history-widget
 
 # Zsh autosuggestions and command comppletion 
 zstyle ':completion:*' menu select
+# git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Edit command with ctrl+x+e in editor (nvim)
@@ -93,7 +94,7 @@ alias dfc="dotfiles commit"
 alias dfp="dotfiles push"
 
 # MISC ALIASES
-alias cdrepos='cd /repositories'
+alias cdrepos='cd ~/repos'
 alias se='source venv/bin/activate'
 alias ip="ip -c"
 # -G color output, -F slash after pathname, -q force printing ? for non graphic chars

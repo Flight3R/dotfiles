@@ -2,7 +2,7 @@
 
 # Usage check
 if [ $# -ne 1 ] && [ $# -ne 2 ]; then
-    echo "Usage: $0 {mikele|storage|arrsuite|pen} [device_suffix] (e.g., sda1 (see: lsblk))"
+    echo "Usage: $0 {mikele|pv|storage|arrsuite|pen} [device_suffix] (e.g., sda1 (see: lsblk))"
     exit 1
 fi
 
@@ -16,7 +16,8 @@ if [ $# -eq 1 ]; then
         echo "No device found matching target: $TARGET"
         exit 1
     fi
-    read -p "Found device matching target: $DEVICE; use it? (Y/n): " choice
+    printf "Found device matching target: %s; use it? (Y/n): " "$DEVICE"
+    read choice
     choice=${choice:-Y}
     if ! [[ "$choice" =~ ^[Yy]$ ]]; then
             echo "Nothing done."
@@ -31,6 +32,9 @@ fi
 case $TARGET in
     mikele)
         MOUNT_DIR=/mnt/mikele_ssd
+        ;;
+    pv)
+        MOUNT_DIR=/mnt/persistent_volumes
         ;;
     storage)
         MOUNT_DIR=/mnt/storage_ssd
@@ -63,7 +67,11 @@ fi
 
 # Mount device to mount directory
 echo "Mounting ${DEVICE} to ${MOUNT_DIR}..."
-sudo mount -o uid=1000,gid=1000 "$DEVICE" "$MOUNT_DIR" || sudo mount "$DEVICE" "$MOUNT_DIR"
+if [ "$TARGET" = "mikele" ]; then
+    sudo mount -o uid=1000,gid=1000 "$DEVICE" "$MOUNT_DIR"
+else
+    sudo mount "$DEVICE" "$MOUNT_DIR"
+fi
 if [ $? -ne 0 ]; then
     echo "Error: Failed to mount ${DEVICE} to ${MOUNT_DIR}."
     exit 1
@@ -73,7 +81,8 @@ echo "Done."
 
 # Prompt for Samba restart
 if [ "$TARGET" = "mikele" ] || [ "$TARGET" = "storage" ]; then
-    read -p "Restart Samba service? (Y/n): " choice
+    printf "Restart Samba service? (Y/n): "
+    read choice
     choice=${choice:-Y}
 
     if [[ "$choice" =~ ^[Yy]$ ]]; then
