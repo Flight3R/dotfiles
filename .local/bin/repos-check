@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-REPOS_DIR="/repositories"
+REPOS_DIR="/home/user/repos"
 
 # Get the length of the longest repository name
 max_length=0

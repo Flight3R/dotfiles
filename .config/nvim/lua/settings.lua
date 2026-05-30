@@ -61,11 +61,11 @@ require("lualine").setup({
 })
 
 -- set vim to use system clipboard
-if vim.fn.has("unnamedplus") == 1 then
-	vim.o.clipboard = "unnamedplus"
-else
-	vim.o.clipboard = "unnamed"
-end
+--if vim.fn.has("unnamedplus") == 1 then
+--	vim.o.clipboard = "unnamedplus"
+--else
+--	vim.o.clipboard = "unnamed"
+--end
 
 -- ignore DS_Store files
 vim.opt.wildignore:append("*/.DS_Store")
