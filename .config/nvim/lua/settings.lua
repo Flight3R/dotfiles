@@ -33,10 +33,14 @@ require("telescope").setup({
             "--smart-case",
         },
         mappings = {
-           i = {
+            i = {
                 ["<C-q>"] = function(prompt_bufnr)
                     actions.send_selected_to_qflist(prompt_bufnr)
                     vim.cmd("copen")
+                end,
+                ["<C-o>"] = function(prompt_bufnr)
+                    actions.send_selected_to_qflist(prompt_bufnr)
+                    vim.cmd("cfdo tab drop %")
                 end,
             },
             n = {
@@ -44,7 +48,11 @@ require("telescope").setup({
                     actions.send_selected_to_qflist(prompt_bufnr)
                     vim.cmd("copen")
                 end,
-            }
+                ["<C-o>"] = function(prompt_bufnr)
+                    actions.send_selected_to_qflist(prompt_bufnr)
+                    vim.cmd("cfdo tab drop %")
+                end,
+            },
         },
     },
 })
@@ -53,11 +61,19 @@ require("telescope").load_extension("conflicts")
 require("telescope").load_extension("projects")
 
 require("lualine").setup({
-  options = {
-    icons_enabled = false,
-    section_separators = "",
-    component_separators = "|",
-  }
+    options = {
+        icons_enabled = false,
+        section_separators = "",
+        component_separators = "|",
+    },
+    sections = {
+        lualine_c = {
+            {
+                "filename",
+                path = 3,
+            }
+        }
+    }
 })
 
 -- set vim to use system clipboard

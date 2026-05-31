@@ -1,5 +1,4 @@
 #!/bin/zsh
-
 printf "Run after-start procedure? (Y/n): "
 read choice
 choice=${choice:-Y}
@@ -24,8 +23,7 @@ echo "-- Allow access for arrsuite to the files:"
 echo "sudo chcon -Rt svirt_sandbox_file_t /mnt/persistent_volumes"
 echo "sudo chcon -Rt svirt_sandbox_file_t /mnt/arrsuite_ssd"
 
-echo "-- Start arrsuite"
-echo "(cd ~/repos/arr_suite && docker dompose up -d)"
-echo "(cd ~/repos/waypoints && docker dompose up -d)"
+echo "-- Start repos"
+echo "cdrepos; ls -1 | xargs -I {} sh -c 'cd {}; docker compose up --detach'"
 
 echo "After-start procedure complete."

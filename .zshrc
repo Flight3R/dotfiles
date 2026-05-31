@@ -90,8 +90,8 @@ alias dfa="dotfiles add"
 alias dfc="dotfiles commit"
 alias dfs="dotfiles status"
 alias dfd="dotfiles diff"
-alias dfc="dotfiles commit"
 alias dfp="dotfiles push"
+alias dfpl="dotfiles pull"
 
 # MISC ALIASES
 alias cdrepos='cd ~/repos'
@@ -119,12 +119,12 @@ alias bn=basename
 alias dn=dirname
 alias lls="ll $HOME/.local/bin"
 
-#sudo chown -R user:user /persistent_volumes/ytd
+# sudo chown -R user:user /mnt/persistent_volumes/ytdl
 alias ytdl='docker run \
                   --rm -i \
                   -e PGID=$(id -g) \
                   -e PUID=$(id -u) \
-                  -v /persistent_volumes/ytdl/mp4:/workdir:z \
+                  -v /mnt/persistent_volumes/ytdl/mp4:/workdir:z \
                   mikenye/youtube-dl'
 
 alias mp4tomp3='function _mp4tomp3(){ ffmpeg -i "$1" -q:a 0 -map a "$2"; }; _mp4tomp3'
