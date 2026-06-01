@@ -21,11 +21,9 @@ vim.keymap.set('n', 'C', '"_C')
 vim.keymap.set('v', 'c', '"_c')
 vim.keymap.set('v', 'x', '"_x')
 
--- system clipboard copy (leader y)
-vim.keymap.set("n", "<leader>y", '"+y')
-vim.keymap.set("v", "<leader>y", '"+y')
--- full line copy
-vim.keymap.set("n", "<leader>Y", '"+Y')
+-- copy to system clipboard
+vim.keymap.set("v", "<leader>y", '"+y', { desc = "Copy selected area to system clipboard" })
+vim.keymap.set("n", "<leader>Y", ":%yank +<CR>", { desc = "Copy whole file to system clipboard" })
 
 -- show diff
 vim.keymap.set('n', 'di', [[:w !diff % -<CR>]], { noremap = true, silent = true, desc = "Show diff" })
