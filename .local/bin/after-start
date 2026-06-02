@@ -5,7 +5,7 @@ choice=${choice:-Y}
 if [[ "$choice" =~ ^[Yy]$ ]]; then
     echo "Setting up macvlan to connect server with 192.168.0.16/28 network..."
     sudo ip link add macvlan link end0 type macvlan mode bridge; sudo ip addr add 192.168.0.18/28 dev macvlan; sudo ip link set macvlan up
-    sudo firewall-cmd --add-interface=macvlan --zone=FedoraServer
+    sudo firewall-cmd --add-interface=macvlan 
     echo "Done."
 fi
 
@@ -26,4 +26,4 @@ echo "sudo chcon -Rt svirt_sandbox_file_t /mnt/arrsuite_ssd"
 echo "-- Start repos"
 echo "cdrepos; ls -1 | xargs -I {} sh -c 'cd {}; docker compose up --detach'"
 
-echo "After-start procedure complete."
+echo "After-start procedure complete.

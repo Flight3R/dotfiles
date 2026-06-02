@@ -104,7 +104,7 @@ alias rp=realpath
 alias bn=basename
 alias dn=dirname
 alias lls="ll $HOME/.local/bin"as ll="ls -GalFq"
-alialias myip='curl -s ipinfo.io'
+alias myip='curl -s ipinfo.io'
 
 # DOCKER ALIASES
 alias d='docker'
