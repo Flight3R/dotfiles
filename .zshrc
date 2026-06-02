@@ -98,37 +98,19 @@ alias cdrepos='cd ~/repos'
 alias se='source venv/bin/activate'
 alias ip="ip -c"
 # -G color output, -F slash after pathname, -q force printing ? for non graphic chars
-alias ll="ls -GalFq"
-
-alias d='docker'
-alias dc='docker compose'
-alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
-alias dpsa='dps -a'
-
-alias myip='curl -s ipinfo.io'
-
-usb=/mnt/mikele_usb
-ssd=/mnt/mikele_ssd
-alias cdtmp='cd $HOME/Downloads/tmp'
-export tmp=$HOME/Downloads/tmp
-
 alias de="tmux detach"
 alias vi=nvim
 alias rp=realpath
 alias bn=basename
 alias dn=dirname
-alias lls="ll $HOME/.local/bin"
+alias lls="ll $HOME/.local/bin"as ll="ls -GalFq"
+alialias myip='curl -s ipinfo.io'
 
-# sudo chown -R user:user /mnt/persistent_volumes/ytdl
-alias ytdl='docker run \
-                  --rm -i \
-                  -e PGID=$(id -g) \
-                  -e PUID=$(id -u) \
-                  -v /mnt/persistent_volumes/ytdl/mp4:/workdir:z \
-                  mikenye/youtube-dl'
-
-alias mp4tomp3='function _mp4tomp3(){ ffmpeg -i "$1" -q:a 0 -map a "$2"; }; _mp4tomp3'
-alias lsblk='lsblk --output NAME,FSTYPE,LABEL,SIZE,FSAVAIL,FSUSE%,MOUNTPOINTS'
+# DOCKER ALIASES
+alias d='docker'
+alias dc='docker compose'
+alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
+alias dpsa='dps -a'
 
 #############################################################
 #                         	OTHER
