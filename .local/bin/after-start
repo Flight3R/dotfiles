@@ -1,29 +1,49 @@
 #!/bin/zsh
-printf "Run after-start procedure? (Y/n): "
+echo "Running after-start procedure..."
+printf "Set up macvlan? (Y/n): "
 read choice
 choice=${choice:-Y}
 if [[ "$choice" =~ ^[Yy]$ ]]; then
     echo "Setting up macvlan to connect server with 192.168.0.16/28 network..."
     sudo ip link add macvlan link end0 type macvlan mode bridge; sudo ip addr add 192.168.0.18/28 dev macvlan; sudo ip link set macvlan up
-    sudo firewall-cmd --add-interface=macvlan 
-    echo "Done."
+    if [[ $? -eq 0 ]]; then
+        echo "Done."
+    else
+        echo "Failed."
+    fi
+else
+    echo "Skipped."
 fi
 
-echo "-- Mount any necessary external drive:"
-echo "ssd-lock mikele"
-echo "ssd-lock pv"
-echo "ssd-lock arrsuite"
+printf "Mount ssd drives? (Y/n):"
+read choice
+choice=${choice:-Y}
+if [[ "$choice" =~ ^[Yy]$ ]]; then
+    echo "Mounting ssd drives..."
+    ssd-mount pv
+    ssd-mount arrsuite
+    if [[ $? -eq 0 ]]; then
+        echo "Done."
+    else
+        echo "Failed."
+    fi
+else
+    echo "Skipped."
+fi
 
-echo "-- Check /mnt/arrsuite_ssd and allow access:"
-echo "ll -Z /mnt/mikele_ssd"
-echo "ll -Z /mnt/persistent_volumes"
-echo "ll -Z /mnt/arrsuite_ssd"
+printf "Up repositories? (Y/n):"
+read choice
+choice=${choice:-Y}
+if [[ "$choice" =~ ^[Yy]$ ]]; then
+    echo "Spinning up deployments..."
+    (cd ~/repos; ls -1 | xargs -I {} sh -c 'cd {}; docker compose up --detach')
+    if [[ $? -eq 0 ]]; then
+        echo "Done."
+    else
+        echo "Failed."
+    fi
+else
+    echo "Skipped."
+fi
 
-echo "-- Allow access for arrsuite to the files:"
-echo "sudo chcon -Rt svirt_sandbox_file_t /mnt/persistent_volumes"
-echo "sudo chcon -Rt svirt_sandbox_file_t /mnt/arrsuite_ssd"
-
-echo "-- Start repos"
-echo "cdrepos; ls -1 | xargs -I {} sh -c 'cd {}; docker compose up --detach'"
-
-echo "After-start procedure complete.
+echo "After-start procedure complete."

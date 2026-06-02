@@ -87,7 +87,7 @@ alias glr="git log --oneline --reflog -10"
 # DOTFILES ALIASES
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias dfa="dotfiles add"
-alias dfc="dotfiles commit"
+alias dfcm="dotfiles commit"
 alias dfs="dotfiles status"
 alias dfd="dotfiles diff"
 alias dfp="dotfiles push"
