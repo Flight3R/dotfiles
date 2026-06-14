@@ -98,12 +98,13 @@ alias cdrepos='cd ~/repos'
 alias se='source venv/bin/activate'
 alias ip="ip -c"
 # -G color output, -F slash after pathname, -q force printing ? for non graphic chars
+alias ll="ls -GalFq"
 alias de="tmux detach"
 alias vi=nvim
 alias rp=realpath
 alias bn=basename
 alias dn=dirname
-alias lls="ll $HOME/.local/bin"as ll="ls -GalFq"
+alias lls="ll $HOME/.local/bin"
 alias myip='curl -s ipinfo.io'
 
 # DOCKER ALIASES
