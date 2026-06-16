@@ -30,7 +30,21 @@ local function toggleMuteIcon()
   setMute(not getMuteState())
 end
 
-hs.hotkey.bind({"cmd", "shift"}, "a", nil, toggleMuteIcon, nil)
+local function toggleMuteKey()
+  local muted = getMuteState()
+  local muting = not muted
+  setMute(muting)
+  if muteAlertId then
+    hs.alert.closeSpecific(muteAlertId)
+  end
+  if muting then
+    muteAlertId = hs.alert.show(styled("Microphone muted", 20, hs.drawing.color.white))
+  else
+    muteAlertId = hs.alert.show(styled("Microphone on", 20, hs.drawing.color.red))
+  end
+end
+
+hs.hotkey.bind({"cmd", "shift"}, "a", nil, toggleMuteKey, nil)
 
 if menu then
   menu:setClickCallback(toggleMuteIcon)
