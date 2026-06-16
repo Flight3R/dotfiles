@@ -1,6 +1,4 @@
--- A better push to talk / toggle mute
-local shouldCaffeinate = false
-local muteMenu = hs.menubar.new()
+local menu = hs.menubar.new()
 
 local function styled(text, size, color)
     return hs.styledtext.new(text, {
@@ -11,15 +9,9 @@ end
 
 local function setMuteDisplay(mute)
   if mute then
-    muteMenu:setTitle(styled("Mute", 14, hs.drawing.color.gray))
+    menu:setTitle(styled("Mute", 13, hs.drawing.color.gray))
   else
-    muteMenu:setTitle(styled("AIR", 14, hs.drawing.color.red))
-  end
-end
-
-local function clearMuteAlert()
-  if muteAlertId then
-    hs.alert.closeSpecific(muteAlertId)
+    menu:setTitle(styled("AIR ", 13, hs.drawing.color.red))
   end
 end
 
@@ -34,44 +26,14 @@ local function getMuteState()
   return audio:inputMuted()
 end
 
-local holdingToTalk = false
-local function pushToTalk()
-  holdingToTalk = true
-  local audio = hs.audiodevice.defaultInputDevice()
-
-  if muted then
-    clearMuteAlert()
-    muteAlertId = hs.alert.show(styled("PTT", 26, hs.drawing.color.white), true)
-    setMute(false)
-  end
-end
-
-local function toggleMute()
+local function toggleMuteIcon()
   setMute(not getMuteState())
 end
 
-local function toggleMuteOrPTT()
-  local muted = getMuteState()
-  local muting = not muted
-  if holdingToTalk then
-    holdingToTalk = false
-    setMute(true)
-    muting = true
-  else
-    setMute(muting)
-  end
-  clearMuteAlert()
-  if muting then
-    muteAlertId = hs.alert.show(styled("Mute", 26, hs.drawing.color.white))
-  else
-    muteAlertId = hs.alert.show(styled("AIR", 26, hs.drawing.color.red))
-  end
-end
+hs.hotkey.bind({"cmd", "shift"}, "a", nil, toggleMuteIcon, nil)
 
-hs.hotkey.bind({"cmd", "shift"}, "a", nil, toggleMuteOrPTT, pushToTalk)
-
-if muteMenu then
-  muteMenu:setClickCallback(toggleMute)
+if menu then
+  menu:setClickCallback(toggleMuteIcon)
   local muted = getMuteState()
   setMuteDisplay(muted)
 end
