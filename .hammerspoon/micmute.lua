@@ -33,10 +33,16 @@ local function setMuteDisplay(mute)
 
   displayedMuteState = mute
 
+  if muteAlertId then
+    hs.alert.closeSpecific(muteAlertId)
+  end
+
   if mute then
     menu:setTitle(styled("Mute", "Menlo", 13, hs.drawing.color.gray))
+    muteAlertId = hs.alert.show(styled("Microphone muted", nil, 22, hs.drawing.color.white))
   else
     menu:setTitle(styled("AIR ", "Menlo", 13, hs.drawing.color.red))
+    muteAlertId = hs.alert.show(styled("Microphone on", nil, 22, hs.drawing.color.red))
   end
 end
 
@@ -63,14 +69,6 @@ local function toggleMuteKey()
   local muted = getMuteState()
   local muting = not muted
   setMute(muting)
-  if muteAlertId then
-    hs.alert.closeSpecific(muteAlertId)
-  end
-  if muting then
-    muteAlertId = hs.alert.show(styled("Microphone muted", nil, 22, hs.drawing.color.white))
-  else
-    muteAlertId = hs.alert.show(styled("Microphone on", nil, 22, hs.drawing.color.red))
-  end
 end
 
 hs.hotkey.bind({"cmd", "shift"}, "a", nil, toggleMuteKey, nil)
