@@ -1,9 +1,4 @@
 -- Microphone mute controller for Hammerspoon.
---
--- Adds a menu bar indicator showing the current input mute state:
---   "Mute" -> microphone is muted
---   "AIR"  -> microphone is live
---
 -- The menu bar item can be clicked to toggle mute silently.
 -- The keyboard shortcut Cmd+Shift+A also toggles mute, but shows an alert
 -- so the state change is obvious while typing or during calls.
@@ -19,10 +14,11 @@ if micMute.refreshTimer then
   micMute.refreshTimer = nil
 end
 
-local function styled(text, font, size, color)
+local function styled(text, font, size, color, bgcolor)
     return hs.styledtext.new(text, {
         color = color,
-        font = { name = font, size = size }
+        font = { name = font, size = size },
+        backgroundColor = bgcolor
     })
 end
 
@@ -33,16 +29,16 @@ local function setMuteDisplay(mute)
 
   displayedMuteState = mute
 
-  if muteAlertId then
-    hs.alert.closeSpecific(muteAlertId)
-  end
+  --if muteAlertId then
+  --  hs.alert.closeSpecific(muteAlertId)
+  --end
 
   if mute then
-    menu:setTitle(styled("Mute", "Menlo", 13, hs.drawing.color.gray))
-    muteAlertId = hs.alert.show(styled("Microphone off", "Menlo", 22, hs.drawing.color.white))
+    menu:setTitle(styled("Mute", "Menlo", 14, hs.drawing.color.gray, nil))
+    --muteAlertId = hs.alert.show(styled("Mute", "Menlo", 22, hs.drawing.color.white, nil))
   else
-    menu:setTitle(styled("AIR ", "Menlo", 13, hs.drawing.color.red))
-    muteAlertId = hs.alert.show(styled("Microphone on ", "Menlo", 22, hs.drawing.color.red))
+    menu:setTitle(styled(" MIC ", "Menlo", 14, hs.drawing.color.white, hs.drawing.color.red))
+    --muteAlertId = hs.alert.show(styled(" REC ", "Menlo", 22, hs.drawing.color.white, hs.drawing.color.red))
   end
 end
 
