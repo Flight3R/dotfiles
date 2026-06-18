@@ -39,10 +39,10 @@ local function setMuteDisplay(mute)
 
   if mute then
     menu:setTitle(styled("Mute", "Menlo", 13, hs.drawing.color.gray))
-    muteAlertId = hs.alert.show(styled("Microphone muted", nil, 22, hs.drawing.color.white))
+    muteAlertId = hs.alert.show(styled("Microphone off", "Menlo", 22, hs.drawing.color.white))
   else
     menu:setTitle(styled("AIR ", "Menlo", 13, hs.drawing.color.red))
-    muteAlertId = hs.alert.show(styled("Microphone on", nil, 22, hs.drawing.color.red))
+    muteAlertId = hs.alert.show(styled("Microphone on ", "Menlo", 22, hs.drawing.color.red))
   end
 end
 
@@ -78,3 +78,4 @@ if menu then
   refreshMuteDisplay()
   micMute.refreshTimer = hs.timer.doEvery(1, refreshMuteDisplay)
 end
+
