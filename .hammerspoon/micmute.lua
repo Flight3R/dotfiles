@@ -7,10 +7,10 @@ if micMute.refreshTimer then
   micMute.refreshTimer = nil
 end
 
-local function styled(text, font, size, color, bgcolor)
+local function styled(text, color, bgcolor)
     return hs.styledtext.new(text, {
         color = color,
-        font = { name = font, size = size },
+        font = { name = "Menlo", size = 14 },
         backgroundColor = bgcolor
     })
 end
@@ -23,9 +23,9 @@ local function setMuteDisplay(mute)
   displayedMuteState = mute
 
   if mute then
-    menu:setTitle(styled("Mute", "Menlo", 14, hs.drawing.color.gray, nil))
+    menu:setTitle(styled("Mute", hs.drawing.color.gray, nil))
   else
-    menu:setTitle(styled(" MIC ", "Menlo", 14, hs.drawing.color.white, hs.drawing.color.red))
+    menu:setTitle(styled(" MIC ", hs.drawing.color.white, hs.drawing.color.red))
   end
 end
 
