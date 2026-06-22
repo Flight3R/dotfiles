@@ -1,7 +1,6 @@
 return {
-    {
+ 	{
  		"nvim-telescope/telescope.nvim",
- 		tag = "0.1.8",
  		dependencies = {
  			"nvim-lua/plenary.nvim",
  			"Snikimonkd/telescope-git-conflicts.nvim",
@@ -23,8 +22,8 @@ return {
     },
     { "neovim/nvim-lspconfig" },
     -- Mason for lsp config
---	{ "williamboman/mason.nvim" },
---	{ "williamboman/mason-lspconfig.nvim" },
+	{ "williamboman/mason.nvim" },
+	{ "williamboman/mason-lspconfig.nvim" },
 
     -- Dont know why this
 --	{ "hrsh7th/nvim-cmp" }, -- The completion plugin

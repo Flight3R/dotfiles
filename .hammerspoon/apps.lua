@@ -1,5 +1,6 @@
 local apps = {
     s = "Safari",
+    c = "Calendar",
     a = "Slack",
     w = "Webex",
     m = "Mail",
@@ -8,7 +9,7 @@ local apps = {
     g = "Ghostty",
     p = "System Settings",
     f = "Finder",
-    c = "Codex",
+    x = "Codex",
     v = "Visual Studio Code",
 }
 

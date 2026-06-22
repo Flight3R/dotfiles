@@ -18,10 +18,9 @@ require("mason-lspconfig").setup({
 -- Function to attach to every LSP server
 local on_attach = function(client, bufnr) end
 
-local lspconfig = require("lspconfig")
-
 for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup({
+    vim.lsp.config(lsp, {
 		on_attach = on_attach,
 	})
+    vim.lsp.enable(lsp)
 end
