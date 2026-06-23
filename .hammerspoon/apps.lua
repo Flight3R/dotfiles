@@ -1,7 +1,7 @@
 local apps = {
     s = "Safari",
     c = "Calendar",
-    a = "Slack",
+    l = "Slack",
     w = "Webex",
     m = "Mail",
     n = "Notes",
