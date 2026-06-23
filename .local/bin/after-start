@@ -37,11 +37,6 @@ choice=${choice:-Y}
 if [[ "$choice" =~ ^[Yy]$ ]]; then
     echo "Spinning up deployments..."
     (cd ~/repos; ls -1 | xargs -I {} sh -c 'cd {}; docker compose up --detach')
-    if [[ $? -eq 0 ]]; then
-        echo "Done."
-    else
-        echo "Failed."
-    fi
 else
     echo "Skipped."
 fi
