@@ -48,7 +48,7 @@ local function toggleMute()
   setMute(not getMuteState())
 end
 
-hs.hotkey.bind({"ctrl", "cmd"}, "z", toggleMute)
+hs.hotkey.bind({"ctrl", "cmd"}, "a", toggleMute)
 
 if menu then
   menu:setClickCallback(toggleMute)
