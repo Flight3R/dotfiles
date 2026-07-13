@@ -1,14 +1,14 @@
 local servers = {
-	"rust_analyzer",
-	"clangd",
+--	"rust_analyzer",
+--	"clangd",
 --	"jdtls",
-	"lua_ls",
+--	"lua_ls",
 --	"marksman",
 --	"omnisharp",
 --	"pyright",
-	"ruff",
+--	"ruff",
 --	"bashls",
---    "gopls"
+--  "gopls"
 }
 
 require("mason").setup() -- Initialize mason

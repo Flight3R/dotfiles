@@ -38,7 +38,7 @@ require("lazy").setup({
 require("settings")
 require("plugins")
 require("mapping")
-require("lsp_config")
+--require("lsp_config")
 
 vim.api.nvim_create_user_command('Trim', function()
   vim.cmd([[%s/\s\+$//e]])
