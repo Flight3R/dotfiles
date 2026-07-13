@@ -5,9 +5,9 @@ local servers = {
 	"lua_ls",
 --	"marksman",
 --	"omnisharp",
-	"pyright",
+--	"pyright",
 	"ruff",
-	"bashls",
+--	"bashls",
 --    "gopls"
 }
 
