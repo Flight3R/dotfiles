@@ -1,58 +1,43 @@
+local width, height = 92, 34
+local screen = hs.screen.mainScreen():fullFrame()
 local menu = hs.menubar.new()
-local displayedMuteState = nil
-micMute = micMute or {}
+local banner = hs.canvas.new({
+  x = screen.x + (screen.w - width) / 2,
+  y = screen.y + screen.h - height,
+  w = width,
+  h = height
+})
 
-if micMute.refreshTimer then
-  micMute.refreshTimer:stop()
-  micMute.refreshTimer = nil
+banner:appendElements(
+  { type = "rectangle", action = "fill", roundedRectRadii = { xRadius = 8, yRadius = 8 } },
+  { type = "text", textAlignment = "center", textFont = "Menlo", textSize = 20,
+    frame = { x = 0, y = 5, w = width, h = 24 } }
+):level("overlay"):behavior({ "canJoinAllSpaces", "stationary", "ignoresCycle" })
+
+local function update()
+  local mic = hs.audiodevice.defaultInputDevice()
+  local muted = mic:inputMuted()
+  banner[1].fillColor = muted and { white = 0.12, alpha = 0.45 }
+    or { red = 1, alpha = 0.45 }
+  banner[2].text = muted and "Mute" or "MIC"
+  banner[2].textColor = muted and hs.drawing.color.gray or hs.drawing.color.white
+  if mic:inUse() then banner:show() else banner:hide() end
+
+  local style = {
+    color = muted and hs.drawing.color.black or hs.drawing.color.white,
+    font = { name = "Menlo", size = 14 }
+  }
+  if not muted then style.backgroundColor = hs.drawing.color.red end
+  menu:setTitle(hs.styledtext.new(muted and "Mute" or " MIC ", style))
 end
 
-local function styled(text, color, bgcolor)
-    return hs.styledtext.new(text, {
-        color = color,
-        font = { name = "Menlo", size = 14 },
-        backgroundColor = bgcolor
-    })
+local function toggle()
+  local mic = hs.audiodevice.defaultInputDevice()
+  mic:setInputMuted(not mic:inputMuted())
+  update()
 end
 
-local function setMuteDisplay(mute)
-  if displayedMuteState == mute then
-    return
-  end
-
-  displayedMuteState = mute
-
-  if mute then
-    menu:setTitle(styled("Mute", hs.drawing.color.gray, nil))
-  else
-    menu:setTitle(styled(" MIC ", hs.drawing.color.white, hs.drawing.color.red))
-  end
-end
-
-local function setMute(mute)
-  local audio = hs.audiodevice.defaultInputDevice()
-  audio:setInputMuted(mute)
-  setMuteDisplay(mute)
-end
-
-local function getMuteState()
-  local audio = hs.audiodevice.defaultInputDevice()
-  return audio:inputMuted()
-end
-
-local function refreshMuteDisplay()
-  setMuteDisplay(getMuteState())
-end
-
-local function toggleMute()
-  setMute(not getMuteState())
-end
-
-hs.hotkey.bind({"ctrl", "cmd"}, "a", toggleMute)
-
-if menu then
-  menu:setClickCallback(toggleMute)
-  refreshMuteDisplay()
-  micMute.refreshTimer = hs.timer.doEvery(1, refreshMuteDisplay)
-end
-
+update()
+hs.hotkey.bind({ "ctrl", "cmd" }, "a", toggle)
+menu:setClickCallback(toggle)
+micMute = hs.timer.doEvery(1, update)
