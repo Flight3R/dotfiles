@@ -1,11 +1,13 @@
 #!/bin/zsh
 
-printf "Question? (Y/n): "
+printf "Continue? (Y/n): "
 read -r choice
-if [[ "${choice:-Y}" != ^[Yy]$ ]]; then
+if [[ ! "${choice:-Y}" =~ ^[Yy]$ ]]; then
     exit 0
 fi
 
+printf "Do stuff? (Y/n): "
+read -r choice
 if [[ "${choice:-Y}" =~ ^[Yy]$ ]]; then
     echo "Doing stuff..."
 fi
