@@ -44,7 +44,7 @@ local function menubarAppearance(muted)
   else
     return {
       text = " MIC ",
-      backgroundColor = hs.drawing.color.red,
+      backgroundColor = { red = 0.8, alpha = 0.7 },
       textColor = hs.drawing.color.white,
       font = menubarFont
     }
