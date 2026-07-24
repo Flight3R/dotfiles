@@ -2,14 +2,23 @@
 
 printf "Continue? (Y/n): "
 read -r choice
-if [[ ! "${choice:-Y}" =~ ^[Yy]$ ]]; then
+if [[ $choice != [Yy] ]]; then
     exit 0
 fi
 
+# wewnątrz [[ ... ]] zmienna po lewej stronie nie wymaga ochrony przed word splittingiem ani globowaniem.
+
 printf "Do stuff? (Y/n): "
 read -r choice
-if [[ "${choice:-Y}" =~ ^[Yy]$ ]]; then
+if [[ $choice == [Yy] ]]; then
     echo "Doing stuff..."
 fi
 
-echo "Done."
+# krocej:
+printf "Continue? (Y/n): "
+read -r choice
+[[ $choice == [Yy] ]] || exit 0
+
+printf "Do stuff? (Y/n): "
+read -r choice
+[[ $choice == [Yy] ]] && echo "Doing stuff..."

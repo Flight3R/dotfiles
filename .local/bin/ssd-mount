@@ -82,7 +82,7 @@ echo "Done."
 if [ "$TARGET" = "mikele" ] || [ "$TARGET" = "storage" ]; then
     printf "Restart Samba service? (Y/n): "
     read -r choice
-    if [[ "${choice:-Y}" =~ ^[Yy]$ ]]; then
+    if [[ $choice == [Yy] ]]; then
         echo "Restarting Samba service..."
         sudo systemctl restart smb
         if [ $? -ne 0 ]; then
