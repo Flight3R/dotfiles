@@ -63,26 +63,20 @@ add-zsh-hook precmd _auto_bg_stopped_job
 #                         ALIASES
 #############################################################
 # GIT ALIASES
-alias gitaliases="alias | grep -E 'git [a-z]+.*[^'\'']'"
-alias gfo="git fetch origin"
+alias gal="alias | grep -E 'git [a-z]+.*[^'\'']'"
 alias gre="git restore"
-alias grt="git reset"
 alias gsw="git switch"
 alias gb="git branch"
 alias ga="git add"
 alias gs="git status"
 alias gd="git diff"
 alias gl="git log -2 --name-only"
+alias glo="git log -10 --oneline"
 alias gcm="git commit"
-alias gcma="git commit --amend"
-alias gcman="git commit --amend --no-edit"
-alias gfod="git fetch origin develop"
-alias grod="git rebase origin/develop"
-alias gpo="git push origin"
-alias gcl="git clean -fd"
+alias gr="git rebase"
+alias gfo="git fetch origin"
+alias gp="git push"
 alias gbc="git branch --show-current"
-alias gr="git reflog -10"
-alias glr="git log --oneline --reflog -10"
 
 # DOTFILES ALIASES
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'

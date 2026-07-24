@@ -15,16 +15,11 @@ banner:appendElements(
 ):level("overlay"):behavior({ "canJoinAllSpaces", "stationary", "ignoresCycle" })
 
 local function bannerColors(muted)
-  if hs.host.interfaceStyle() == "Dark" then
-    if muted then
-      return { white = 0.95, alpha = 0.70 }, { white = 0.08, alpha = 1 }
-    end
-    return { red = 1, green = 0.12, blue = 0.12, alpha = 0.70 },
-      hs.drawing.color.white
+  if muted then
+    return { white = 0.3, alpha = 0.7 }, hs.drawing.color.gray
+  else
+    return { red = 0.8, alpha = 0.7 }, hs.drawing.color.white
   end
-
-  return muted and { white = 0.12, alpha = 0.70 } or { red = 1, alpha = 0.70 },
-    muted and hs.drawing.color.gray or hs.drawing.color.white
 end
 
 local function update()
@@ -32,16 +27,31 @@ local function update()
   local muted = mic:inputMuted()
   local fillColor, textColor = bannerColors(muted)
   banner[1].fillColor = fillColor
-  banner[2].text = muted and "Mute" or "MIC"
   banner[2].textColor = textColor
-  if mic:inUse() then banner:show() else banner:hide() end
+
+  if mic:inUse() then
+    banner:show()
+  else
+    banner:hide()
+  end
 
   local style = {
-    color = muted or hs.drawing.color.white,
     font = { name = "Menlo", size = 14 }
   }
-  if not muted then style.backgroundColor = hs.drawing.color.red end
-  menu:setTitle(hs.styledtext.new(muted and "Mute" or " MIC ", style))
+  local menuText
+
+  if muted then
+    banner[2].text = "Mute"
+    menuText = "Mute"
+    style.color = hs.drawing.color.gray
+  else
+    banner[2].text = "MIC"
+    menuText = " MIC "
+    style.color = hs.drawing.color.white
+    style.backgroundColor = hs.drawing.color.red
+  end
+
+  menu:setTitle(hs.styledtext.new(menuText, style))
 end
 
 local function toggle()
