@@ -1,9 +1,8 @@
 #!/bin/zsh
 echo "Running after-start procedure..."
 printf "Set up macvlan? (Y/n): "
-read choice
-choice=${choice:-Y}
-if [[ "$choice" =~ ^[Yy]$ ]]; then
+read -r choice
+if [[ "${choice:-Y}" =~ ^[Yy]$ ]]; then
     echo "Setting up macvlan to connect server with 192.168.0.16/28 network..."
     sudo ip link add macvlan link end0 type macvlan mode bridge; sudo ip addr add 192.168.0.18/28 dev macvlan; sudo ip link set macvlan up
     if [[ $? -eq 0 ]]; then
@@ -16,9 +15,8 @@ else
 fi
 
 printf "Mount ssd drives? (Y/n):"
-read choice
-choice=${choice:-Y}
-if [[ "$choice" =~ ^[Yy]$ ]]; then
+read -r choice
+if [[ "${choice:-Y}" =~ ^[Yy]$ ]]; then
     echo "Mounting ssd drives..."
     ssd-mount pv
     ssd-mount arrsuite
@@ -32,9 +30,8 @@ else
 fi
 
 printf "Up repositories? (Y/n):"
-read choice
-choice=${choice:-Y}
-if [[ "$choice" =~ ^[Yy]$ ]]; then
+read -r choice
+if [[ "${choice:-Y}" =~ ^[Yy]$ ]]; then
     echo "Spinning up deployments..."
     (cd ~/repos; ls -1 | xargs -I {} sh -c 'cd {}; docker compose up --detach')
 else

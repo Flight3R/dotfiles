@@ -17,9 +17,8 @@ if [ $# -eq 1 ]; then
         exit 1
     fi
     printf "Found device matching target: %s; use it? (Y/n): " "$DEVICE"
-    read choice
-    choice=${choice:-Y}
-    if ! [[ "$choice" =~ ^[Yy]$ ]]; then
+    read -r choice
+    if [[ "${choice:-Y}" =~ ^[Yy]$ ]]; then
             echo "Nothing done."
             exit 1
     fi
@@ -82,10 +81,8 @@ echo "Done."
 # Prompt for Samba restart
 if [ "$TARGET" = "mikele" ] || [ "$TARGET" = "storage" ]; then
     printf "Restart Samba service? (Y/n): "
-    read choice
-    choice=${choice:-Y}
-
-    if [[ "$choice" =~ ^[Yy]$ ]]; then
+    read -r choice
+    if [[ "${choice:-Y}" =~ ^[Yy]$ ]]; then
         echo "Restarting Samba service..."
         sudo systemctl restart smb
         if [ $? -ne 0 ]; then
