@@ -76,6 +76,7 @@ alias gcm="git commit"
 alias gr="git rebase"
 alias gfo="git fetch origin"
 alias gp="git push"
+alias gpl="git pull"
 alias gbc="git branch --show-current"
 
 # DOTFILES ALIASES
