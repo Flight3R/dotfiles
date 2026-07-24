@@ -10,48 +10,77 @@ local banner = hs.canvas.new({
 
 banner:appendElements(
   { type = "rectangle", action = "fill", roundedRectRadii = { xRadius = 8, yRadius = 8 } },
-  { type = "text", textAlignment = "center", textFont = "Menlo", textSize = 20,
+  { type = "text", textAlignment = "center",
     frame = { x = 0, y = 5, w = width, h = 24 } }
 ):level("overlay"):behavior({ "canJoinAllSpaces", "stationary", "ignoresCycle" })
 
-local function bannerColors(muted)
+local function bannerAppearance(muted)
+  local bannerFont = { name = "Menlo", size = 20 }
   if muted then
-    return { white = 0.3, alpha = 0.7 }, hs.drawing.color.gray
+    return {
+      text = "Mute",
+      backgroundColor = { white = 0.3, alpha = 0.7 },
+      textColor = hs.drawing.color.gray,
+      font = bannerFont
+    }
   else
-    return { red = 0.8, alpha = 0.7 }, hs.drawing.color.white
+    return {
+      text = "MIC",
+      backgroundColor = { red = 0.8, alpha = 0.7 },
+      textColor = hs.drawing.color.white,
+      font = bannerFont
+    }
   end
 end
 
-local function update()
-  local mic = hs.audiodevice.defaultInputDevice()
-  local muted = mic:inputMuted()
-  local fillColor, textColor = bannerColors(muted)
-  banner[1].fillColor = fillColor
-  banner[2].textColor = textColor
+local function menubarAppearance(muted)
+  local menubarFont = { name = "Menlo", size = 14 }
+  if muted then
+    return {
+      text = "Mute",
+      textColor = hs.drawing.color.gray,
+      font = menubarFont
+    }
+  else
+    return {
+      text = " MIC ",
+      backgroundColor = hs.drawing.color.red,
+      textColor = hs.drawing.color.white,
+      font = menubarFont
+    }
+  end
+end
+
+local function updateBanner(mic, appearance)
+  banner[1].fillColor = appearance.backgroundColor
+  banner[2].text = appearance.text
+  banner[2].textColor = appearance.textColor
+  banner[2].textFont = appearance.font.name
+  banner[2].textSize = appearance.font.size
 
   if mic:inUse() then
     banner:show()
   else
     banner:hide()
   end
+end
 
+local function updateMenubar(appearance)
   local style = {
-    font = { name = "Menlo", size = 14 }
+    backgroundColor = appearance.backgroundColor,
+    color = appearance.textColor,
+    font = appearance.font
   }
-  local menuText
 
-  if muted then
-    banner[2].text = "Mute"
-    menuText = "Mute"
-    style.color = hs.drawing.color.gray
-  else
-    banner[2].text = "MIC"
-    menuText = " MIC "
-    style.color = hs.drawing.color.white
-    style.backgroundColor = hs.drawing.color.red
-  end
+  menu:setTitle(hs.styledtext.new(appearance.text, style))
+end
 
-  menu:setTitle(hs.styledtext.new(menuText, style))
+local function update()
+  local mic = hs.audiodevice.defaultInputDevice()
+  local muted = mic:inputMuted()
+
+  updateBanner(mic, bannerAppearance(muted))
+  updateMenubar(menubarAppearance(muted))
 end
 
 local function toggle()
