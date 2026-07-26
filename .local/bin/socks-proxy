@@ -3,26 +3,27 @@
 INTERFACE="Wi-Fi"
 SOCKS_HOST="127.0.0.1"
 SOCKS_PORT="8080"
-SSH_HOST="user@server"
+SSH_HOST="server"
 
 cleanup() {
-    echo "Wyłączanie proxy..."
+    echo "Switching off..."
     networksetup -setsocksfirewallproxystate "$INTERFACE" off
+    echo "Proxy is off."
     exit 0
 }
 
 trap cleanup INT TERM
 
-echo "Uruchamianie tunelu SSH SOCKS..."
+echo "Starting SSH tunnel SOCKS..."
 ssh -N -D "$SOCKS_PORT" "$SSH_HOST" &
 SSH_PID=$!
 
 sleep 1
 
-echo "Włączanie proxy SOCKS ${SOCKS_HOST}:${SOCKS_PORT}..."
+echo "Switching on SOCKS: ${SOCKS_HOST}:${SOCKS_PORT}..."
 networksetup -setsocksfirewallproxy "$INTERFACE" "$SOCKS_HOST" "$SOCKS_PORT"
 networksetup -setsocksfirewallproxystate "$INTERFACE" on
 
-echo "Proxy aktywne. Ctrl+C aby wyłączyć."
+echo "Proxy is active. Press Ctrl+C to switch off."
 
 wait $SSH_PID
