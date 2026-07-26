@@ -10,6 +10,6 @@ if tmux has-session -t "$SESSION" 2>/dev/null; then
 fi
 
 tmux new-session -d -s "$SESSION" "sshuttle -r $SERVER $HOST"
-tmux split-window -v "sudo tcpdump -ni $IFACE host $HOST"
+tmux split-window -v "echo 'No traffic == OK'; sudo tcpdump -ni $IFACE host $HOST"
 tmux select-pane -t 0
 exec tmux attach-session -t "$SESSION"
