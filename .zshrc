@@ -81,12 +81,21 @@ alias gbc="git branch --show-current"
 
 # DOTFILES ALIASES
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dfal="alias | grep -E 'dotfiles [a-z]+.*[^'\'']'"
+alias dfre="dotfiles restore"
+alias dfsw="dotfiles switch"
+alias dfb="dotfiles branch"
 alias dfa="dotfiles add"
-alias dfcm="dotfiles commit"
 alias dfs="dotfiles status"
 alias dfd="dotfiles diff"
+alias dfl="dotfiles log -2 --name-only"
+alias dflo="dotfiles log -10 --oneline"
+alias dfcm="dotfiles commit"
+alias dfr="dotfiles rebase"
+alias dffo="dotfiles fetch origin"
 alias dfp="dotfiles push"
 alias dfpl="dotfiles pull"
+alias dfbc="dotfiles branch --show-current"
 
 # MISC ALIASES
 alias cdrepos='cd ~/repos'
