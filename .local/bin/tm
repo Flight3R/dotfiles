@@ -1,2 +1,7 @@
 #!/bin/zsh
-tmux has-session 2>/dev/null && tmux attach || tmux new-session "date; zsh"
+
+if tmux has-session 2>/dev/null; then
+    tmux attach
+else
+    tmux new-session "date; zsh"
+fi
