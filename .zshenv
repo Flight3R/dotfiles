@@ -1,3 +1,4 @@
+typeset -U path PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export EDITOR=nvim
