@@ -21,11 +21,15 @@ printf "%-${column_width}s %s\n" "Repository" "Status"
 printf "%-${column_width}s %s\n" "$(head -c "$max_length" < <(printf '%*s' "$max_length" '' | tr ' ' '-'))" "------"
 
 # Loop through repos 
-for dir in "$REPOS_DIR"/*; do
-    repo_name=$(basename "$dir")
+for dir in $REPOS_DIR/*; do
+    [[ -d $dir ]] || continue
 
-    if [ -d "$dir/.git" ]; then
-        cd "$dir" || continue
+    repo_name=$(basename $dir)
+
+    if [[ -d "$dir/.git" ]]; then
+        # skip not dirs
+        cd $dir || continue
+
         git fetch origin &>/dev/null
         branch=$(git rev-parse --abbrev-ref HEAD)
 
@@ -38,7 +42,7 @@ for dir in "$REPOS_DIR"/*; do
 
         if git rev-parse --abbrev-ref --symbolic-full-name "@{u}" &>/dev/null; then
             ahead=$(git rev-list --left-right --count origin/"$branch"...HEAD | awk '{print $2}')
-            if [ "$ahead" -eq 0 ]; then
+            if [[ "$ahead" -eq 0 ]]; then
                 git_status="all commits pushed"
             else
                 git_status="$ahead commit(s) not pushed to origin/$branch"
@@ -49,7 +53,7 @@ for dir in "$REPOS_DIR"/*; do
 
         cd - &>/dev/null
 
-        if [ -n "$uncommitted" ]; then
+        if [[ -n "$uncommitted" ]]; then
             git_status="$git_status, $uncommitted"
         fi
     else
