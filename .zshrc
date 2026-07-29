@@ -101,10 +101,10 @@ alias bn=basename
 alias dn=dirname
 alias lls="ll $HOME/.local/bin"
 alias myip='curl -s ipinfo.io'
-alias m="more"
 alias l="less"
 alias h="head"
 alias t="tail"
+alias c="cat"
 
 # DOCKER ALIASES
 alias d='docker'

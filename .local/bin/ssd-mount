@@ -18,7 +18,7 @@ if [ $# -eq 1 ]; then
     fi
     printf "Found device matching target: %s; use it? (Y/n): " "$DEVICE"
     read -r choice
-    if [[ "${choice:-Y}" =~ ^[Yy]$ ]]; then
+    if [[ $choice != [Yy] ]]; then
             echo "Nothing done."
             exit 1
     fi
@@ -30,19 +30,19 @@ fi
 # Set mount directory based on first argument
 case $TARGET in
     mikele)
-        MOUNT_DIR=/mnt/mikele_ssd
+        MOUNT_DIR=/mnt/mikele-ssd
         ;;
     pv)
-        MOUNT_DIR=/mnt/persistent_volumes
+        MOUNT_DIR=/mnt/persistent-volumes
         ;;
     storage)
-        MOUNT_DIR=/mnt/storage_ssd
+        MOUNT_DIR=/mnt/storage-ssd
         ;;
     arrsuite)
-        MOUNT_DIR=/mnt/arrsuite_ssd
+        MOUNT_DIR=/mnt/arrsuite-ssd
         ;;
     pen)
-        MOUNT_DIR=/mnt/mikele_pen
+        MOUNT_DIR=/mnt/mikele-pen
         ;;
     *)
         echo "Invalid target: $TARGET."
