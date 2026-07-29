@@ -113,15 +113,6 @@ alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.Running
 alias dpsa='dps -a'
 
 #############################################################
-#                         	OTHER
-#############################################################
-export EDITOR=nvim
-export VISUAL=nvim
-
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.npm-global/bin:$PATH"
-
-#############################################################
 #                         LOCAL
 #############################################################
-[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
