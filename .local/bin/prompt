@@ -1,24 +1,25 @@
 #!/bin/zsh
 
+# [[ -z $text ]] - if text is empty
 printf "Continue? (Y/n): "
 read -r choice
-if [[ $choice != [Yy] ]]; then
+if [[ -z $choice || $choice == [Yy] ]]; then
+    :
+else
     exit 0
 fi
 
-# wewnątrz [[ ... ]] zmienna po lewej stronie nie wymaga ochrony przed word splittingiem ani globowaniem.
-
 printf "Do stuff? (Y/n): "
 read -r choice
-if [[ $choice == [Yy] ]]; then
+if [[ -z $choice || $choice == [Yy] ]]; then
     echo "Doing stuff..."
 fi
 
 # krocej:
 printf "Continue? (Y/n): "
 read -r choice
-[[ $choice == [Yy] ]] || exit 0
+[[ -z $choice || $choice == [Yy] ]] || exit 0
 
 printf "Do stuff? (Y/n): "
 read -r choice
-[[ $choice == [Yy] ]] && echo "Doing stuff..."
+[[ -z $choice || $choice == [Yy] ]] && echo "Doing stuff..."
