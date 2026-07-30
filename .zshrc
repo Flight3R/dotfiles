@@ -15,13 +15,13 @@ compinit
 #                         PROMPT
 #############################################################
 # Fzf history bind to ctrl+r
-setopt HIST_IGNORE_ALL_DUPS
-fzf-history-widget() {
-    BUFFER=$(fc -l -n 1 | fzf --tac --query="$LBUFFER")
-    CURSOR=$#BUFFER
-    zle redisplay
-}
-zle -N fzf-history-widget
+source <(fzf --zsh)
+export FZF_CTRL_R_OPTS="
+  --height=60%
+  --layout=reverse
+  --border
+  --info=inline
+"
 bindkey '^R' fzf-history-widget
 
 # Zsh autosuggestions and command comppletion 
