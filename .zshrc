@@ -22,10 +22,10 @@ export FZF_CTRL_R_OPTS="
   --border
   --info=inline
 "
-bindkey '^R' fzf-history-widget
+bindkey "^R" fzf-history-widget
 
 # Zsh autosuggestions and command comppletion 
-zstyle ':completion:*' menu select
+zstyle ":completion:*" menu select
 # git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -35,20 +35,20 @@ zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
 # Color definitions
-RED='%F{red}'
-YELLOW='%F{yellow}'
-BLUE='%F{blue}'
-GREEN='%F{green}'
-MAGENTA='%F{magenta}'
-RESET='%f'
+RED="%F{red}"
+YELLOW="%F{yellow}"
+BLUE="%F{blue}"
+GREEN="%F{green}"
+MAGENTA="%F{magenta}"
+RESET="%f"
 # Default prompt (override in .zshrc.local file)
-PROMPT='%B${RED}[${RESET}${BLUE}%n@%m${RESET} (%*) %~${RED}]${RESET}${vcs_info_msg_0_} > %b'
+PROMPT="%B${RED}[${RESET}${BLUE}%n@%m${RESET} (%*) %~${RED}]${RESET}${vcs_info_msg_0_} > %b"
 
 # Git branch in prompt
 autoload -Uz vcs_info
 precmd() { vcs_info }
 setopt prompt_subst
-zstyle ':vcs_info:git:*' formats '(%b)'
+zstyle ":vcs_info:git:*" formats "(%b)"
 
 # Auto resume job in background after ctrl+z
 autoload -Uz add-zsh-hook
@@ -80,7 +80,7 @@ alias gpl="git pull"
 alias gbc="git branch --show-current"
 
 # DOTFILES ALIASES
-alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 alias dfal="alias | grep -E 'dotfiles [a-z]+.*[^'\'']'"
 alias dfre="dotfiles restore"
 alias dfsw="dotfiles switch"
@@ -98,8 +98,8 @@ alias dfpl="dotfiles pull"
 alias dfbc="dotfiles branch --show-current"
 
 # MISC ALIASES
-alias cdrepos='cd ~/repos'
-alias se='source venv/bin/activate'
+alias cdrepos="cd ~/repos"
+alias se="source venv/bin/activate"
 alias ip="ip -c"
 # -G color output, -F slash after pathname, -q force printing ? for non graphic chars
 alias ll="ls -GalFq"
@@ -109,17 +109,17 @@ alias rp=realpath
 alias bn=basename
 alias dn=dirname
 alias lls="ll $HOME/.local/bin"
-alias myip='curl -s ipinfo.io'
+alias myip="curl -s ipinfo.io"
 alias l="less"
 alias h="head"
 alias t="tail"
 alias c="cat"
 
 # DOCKER ALIASES
-alias d='docker'
-alias dc='docker compose'
-alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
-alias dpsa='dps -a'
+alias d="docker"
+alias dc="docker compose"
+alias dps="docker ps --format 'table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.RunningFor}}\t{{.Status}}'"
+alias dpsa="dps -a"
 
 #############################################################
 #                         LOCAL
