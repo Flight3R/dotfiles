@@ -1,11 +1,11 @@
 local servers = {
 --	"rust_analyzer",
---	"clangd",
+	"clangd",
 --	"jdtls",
 --	"lua_ls",
 --	"marksman",
 --	"omnisharp",
---	"pyright",
+	"pyright",
 --	"ruff",
 --	"bashls",
 --  "gopls"

@@ -114,6 +114,9 @@ alias l="less"
 alias h="head"
 alias t="tail"
 alias c="cat"
+alias p="print -l"
+alias f="find"
+alias v="vi"
 
 # DOCKER ALIASES
 alias d="docker"
