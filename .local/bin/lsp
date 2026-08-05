@@ -3,7 +3,7 @@
 set -eu
 setopt pipefail
 
-readonly init_file="$HOME/.config/nvim/init.lua"
+INIT_LUA="$HOME/.config/nvim/init.lua"
 
 usage() {
     cat >&2 <<'EOF'
@@ -23,14 +23,14 @@ case "$1" in
         # Uncomment require("lsp_config")
         nvim '+g/^--require("lsp_config")$/s/^--//' \
             '+wq' \
-            "$init_file"
+            "$INIT_LUA"
         echo "LSP enabled"
         ;;
     n)
         # Comment out require("lsp_config")
         nvim '+g/^require("lsp_config")$/s/^/--/' \
             '+wq' \
-            "$init_file"
+            "$INIT_LUA"
         echo "LSP disabled"
         ;;
     *)
