@@ -14,7 +14,6 @@ compinit
 #############################################################
 #                         PROMPT
 #############################################################
-# Fzf history bind to ctrl+r
 source <(fzf --zsh)
 export FZF_CTRL_R_OPTS="
   --height=60%
@@ -23,6 +22,13 @@ export FZF_CTRL_R_OPTS="
   --info=inline
 "
 bindkey "^R" fzf-history-widget
+
+copy-buffer-to-clipboard() {
+  print -rn -- "$BUFFER" | pbcopy
+  zle -M "Command in prompt copied to clipboard."
+}
+zle -N copy-buffer-to-clipboard
+bindkey '^X^Y' copy-buffer-to-clipboard
 
 # Zsh autosuggestions and command comppletion 
 zstyle ":completion:*" menu select

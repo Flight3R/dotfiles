@@ -1,0 +1,34 @@
+#!/bin/zsh
+
+set -e
+set -u
+setopt pipefail
+
+readonly init_file="$HOME/.config/nvim/init.lua"
+
+case "${1:-}" in
+  y)
+    # Uncomment require("lsp_config")
+    nvim --headless \
+      '+g/^--require("lsp_config")$/s/^--//' \
+      '+wq' \
+      "$init_file"
+    echo "LSP enabled"
+    ;;
+
+  n)
+    # Comment out require("lsp_config")
+    nvim --headless \
+      '+g/^require("lsp_config")$/s/^/--/' \
+      '+wq' \
+      "$init_file"
+    echo "LSP disabled"
+    ;;
+
+  *)
+    echo "Usage: lsp y|n" >&2
+    echo "  y — enable LSP in nvim"
+    echo "  n — disable LSP in nvim"
+    exit 1
+    ;;
+esac

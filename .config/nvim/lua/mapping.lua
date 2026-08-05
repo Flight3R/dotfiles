@@ -12,7 +12,7 @@ vim.keymap.set("n", "<leader>e", ":Ex<CR>", { noremap = true, silent = true, des
 -- toggle line wrap
 vim.keymap.set("n", "<leader>z", ":set wrap!<CR>", { noremap = true, silent = true, desc = "Toggle line wrap" })
 
--- Don't yank with x or d or c
+-- Dont yank with x or d or c
 vim.keymap.set('n', 'x', '"_x')
 vim.keymap.set('n', 'X', '"_X')
 vim.keymap.set('n', 'c', '"_c')
@@ -26,20 +26,25 @@ vim.keymap.set("v", "<leader>y", '"+y', { desc = "Copy selected area to system c
 vim.keymap.set("n", "<leader>Y", ":%yank +<CR>", { desc = "Copy whole file to system clipboard" })
 
 -- show diff
-vim.keymap.set('n', 'di', [[:w !diff % -<CR>]], { noremap = true, silent = true, desc = "Show diff" })
+vim.keymap.set("n", "di", [[:w !diff % -<CR>]], { noremap = true, silent = true, desc = "Show diff" })
 
 -- show diag
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostics" })
 
 -- buffer control (switching between files)
-vim.keymap.set('n', '<Tab>', ':bnext<CR>')
-vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>')
-vim.keymap.set('n', '<leader>q', ':bdelete<CR>')
-vim.keymap.set('n', '<leader><Tab>', ':Telescope buffers<CR>')
+vim.keymap.set("n", "<Tab>", ":bnext<CR>")
+vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>")
+vim.keymap.set("n", "<leader>q", ":bdelete<CR>")
+vim.keymap.set("n", "<leader><Tab>", ":Telescope buffers<CR>")
 
-vim.keymap.set('n', '<leader>n', ':vnew<CR>', { noremap = true, silent = true, desc = 'Open new buffer' })
+vim.keymap.set("n", "<leader>n", ":vnew<CR>", { noremap = true, silent = true, desc = "Open new buffer" })
 
-vim.keymap.set('n', 'rp', function() vim.cmd('!realpath %') end, { desc = 'Run realpath on current file' })
+vim.keymap.set("n", "rp", function()
+  local file = vim.api.nvim_buf_get_name(0)
+  local path = vim.trim(vim.fn.system({ "realpath", file }))
+  vim.fn.setreg("+", path)
+  vim.notify("Copied path: " .. path)
+end, { desc = "Copy realpath of current file to system clipboard" })
 
 vim.keymap.set("n", "fd", ":Telescope projects<CR>", { desc = "show projects" })
 
@@ -48,4 +53,3 @@ vim.keymap.set("n", "tg",":GitBlameToggle<CR>", { desc = "toggle git blame log l
 vim.keymap.set("n", "gb", ":GitBlameOpenCommitURL<CR>", { desc = "open git blame commit in browser" })
 
 vim.keymap.set("n", "yh", ":Telescope yank_history<CR>", { desc = "telescope yank history" })
-
