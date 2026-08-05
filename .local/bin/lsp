@@ -1,34 +1,39 @@
 #!/bin/zsh
 
-set -e
-set -u
+set -eu
 setopt pipefail
 
 readonly init_file="$HOME/.config/nvim/init.lua"
 
-case "${1:-}" in
-  y)
-    # Uncomment require("lsp_config")
-    nvim --headless \
-      '+g/^--require("lsp_config")$/s/^--//' \
-      '+wq' \
-      "$init_file"
-    echo "LSP enabled"
-    ;;
+usage() {
+    cat >&2 <<'EOF'
+Usage: lsp y|n
 
-  n)
-    # Comment out require("lsp_config")
-    nvim --headless \
-      '+g/^require("lsp_config")$/s/^/--/' \
-      '+wq' \
-      "$init_file"
-    echo "LSP disabled"
-    ;;
-
-  *)
-    echo "Usage: lsp y|n" >&2
-    echo "  y — enable LSP in nvim"
-    echo "  n — disable LSP in nvim"
+  y    Enable LSP in Neovim
+  n    Disable LSP in Neovim
+EOF
     exit 1
-    ;;
+}
+
+# Require exactly one argument.
+(( $# == 1 )) || usage
+
+case "$1" in
+    y)
+        # Uncomment require("lsp_config")
+        nvim '+g/^--require("lsp_config")$/s/^--//' \
+            '+wq' \
+            "$init_file"
+        echo "LSP enabled"
+        ;;
+    n)
+        # Comment out require("lsp_config")
+        nvim '+g/^require("lsp_config")$/s/^/--/' \
+            '+wq' \
+            "$init_file"
+        echo "LSP disabled"
+        ;;
+    *)
+        usage
+        ;;
 esac
