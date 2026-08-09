@@ -1,0 +1,59 @@
+#!/bin/zsh
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $0 <input.pdf>" >&2
+    exit 1
+fi
+
+INPUT="$1"
+
+if [[ ! -f "$INPUT" ]]; then
+    echo "Error: file not found: $INPUT" >&2
+    exit 1
+fi
+
+if [[ "${INPUT:l}" != *.pdf ]]; then
+    echo "Error: input file must be a PDF" >&2
+    exit 1
+fi
+
+TOTAL_PAGES=$(pdfinfo "$INPUT" 2>/dev/null | awk '/^Pages:/ {print $2}')
+
+if [[ -z "$TOTAL_PAGES" ]]; then
+    echo "Error: unable to determine number of pages" >&2
+    exit 1
+fi
+
+NOTAM_PAGE=""
+
+for i in {1..$TOTAL_PAGES}; do
+    if pdftotext -f "$i" -l "$i" "$INPUT" - 2>/dev/null | grep -q '\[ NOTAM \]'; then
+        NOTAM_PAGE="$i"
+        break
+    fi
+done
+
+if [[ -z "$NOTAM_PAGE" ]]; then
+    echo "Error: '[ NOTAM ]' not found in PDF" >&2
+    exit 1
+fi
+
+if [[ "$NOTAM_PAGE" -eq 1 ]]; then
+    echo "Error: '[ NOTAM ]' is already on page 1; nothing to trim" >&2
+    exit 1
+fi
+
+OUTPUT="${INPUT:r}-trimmed.pdf"
+
+echo "Found '[ NOTAM ]' on page $NOTAM_PAGE"
+echo "Keeping pages 1-$((NOTAM_PAGE - 1))"
+echo "Output: $OUTPUT"
+
+qpdf "$INPUT" --pages "$INPUT" "1-$((NOTAM_PAGE - 1))" -- "$OUTPUT"
+
+if [[ $? -eq 0 ]]; then
+    echo "Done."
+else
+    echo "Error: qpdf failed" >&2
+    exit 1
+fi
