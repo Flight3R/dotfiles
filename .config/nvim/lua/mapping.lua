@@ -40,6 +40,7 @@ vim.keymap.set("n", "<leader>n", ":vnew<CR>", { noremap = true, silent = true, d
 vim.keymap.set("n", "<leader>rp", function()
   local file = vim.api.nvim_buf_get_name(0)
   local path = vim.trim(vim.fn.system({ "realpath", file }))
+  path = '"' .. path .. '"'
   vim.fn.setreg("+", path)
   vim.notify("Copied path: " .. path)
 end, { desc = "Copy realpath of current file to system clipboard" })
