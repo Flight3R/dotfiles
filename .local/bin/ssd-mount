@@ -18,7 +18,7 @@ if [ $# -eq 1 ]; then
     fi
     printf "Found device matching target: %s; use it? (Y/n): " "$DEVICE"
     read -r choice
-    if [[ $choice != [Yy] ]]; then
+    if [[ -n $choice && $choice != [Yy] ]]; then
             echo "Nothing done."
             exit 1
     fi
