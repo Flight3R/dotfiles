@@ -1,14 +1,10 @@
 #!/bin/zsh
 
-set -eu
-setopt pipefail
-
 INIT_LUA="$HOME/.config/nvim/init.lua"
 
 usage() {
-    cat >&2 <<'EOF'
+    cat 1>&2 <<EOF
 Usage: lsp y|n
-
   y    Enable LSP in Neovim
   n    Disable LSP in Neovim
 EOF
@@ -16,7 +12,7 @@ EOF
 }
 
 # Require exactly one argument.
-(( $# == 1 )) || usage
+[[ $# -eq 1 ]] || usage
 
 case "$1" in
     y)

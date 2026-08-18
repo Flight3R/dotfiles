@@ -33,14 +33,14 @@ require("lazy").setup({
 	spec = {
 		{ import = "plugins" },
 	},
+	rocks = { enabled = false },
 	checker = { enabled = false },
 })
 require("settings")
 require("plugins")
 require("mapping")
---require("lsp_config")
+require("lsp_config")
 
 vim.api.nvim_create_user_command('Trim', function()
   vim.cmd([[%s/\s\+$//e]])
 end, {})
-

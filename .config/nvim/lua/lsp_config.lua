@@ -11,7 +11,6 @@ local servers = {
 --  "gopls"
 }
 
-require("mason").setup() -- Initialize mason
 require("mason-lspconfig").setup({
 	ensure_installed = servers,
 })

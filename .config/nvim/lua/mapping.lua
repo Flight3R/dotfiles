@@ -1,14 +1,3 @@
-builtin = require("telescope.builtin")
-vim.keymap.set("n", "fr", builtin.oldfiles, { desc = "Find Recent Files" })
-vim.keymap.set("n", "ff", builtin.find_files, { desc = "fuzzy find files" })
-local live_grep = require("telescope").extensions.live_grep_args
-vim.keymap.set("n", "fg", function() live_grep.live_grep_args() end, { desc = "live grep" })
-vim.keymap.set("n",	"gr", builtin.lsp_references, { desc = "show lsp references" })
-vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "go to definition" })
-vim.keymap.set("n", "fd", ":Telescope projects<CR>", { desc = "show projects" })
-vim.keymap.set("n", "tg",":GitBlameToggle<CR>", { desc = "toggle git blame log line, turn on / off" })
-vim.keymap.set("n", "gb", ":GitBlameOpenCommitURL<CR>", { desc = "open git blame commit in browser" })
-vim.keymap.set("n", "yh", ":Telescope yank_history<CR>", { desc = "telescope yank history" })
 -- exit from file
 vim.keymap.set("n", "<leader>e", ":Ex<CR>", { noremap = true, silent = true, desc = "Exit from file" })
 -- toggle line wrap
@@ -34,13 +23,14 @@ vim.keymap.set("n", "<leader>cd", ":cd %:p:h<CR>", { desc = "cd to current file 
 vim.keymap.set("n", "<Tab>", ":bnext<CR>")
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>")
 vim.keymap.set("n", "<leader>q", ":bdelete<CR>")
-vim.keymap.set("n", "<leader><Tab>", ":Telescope buffers<CR>")
 vim.keymap.set("n", "<leader>n", ":vnew<CR>", { noremap = true, silent = true, desc = "Open new buffer" })
 -- realpath
-vim.keymap.set("n", "<leader>rp", function()
+local function copy_realpath()
   local file = vim.api.nvim_buf_get_name(0)
   local path = vim.trim(vim.fn.system({ "realpath", file }))
   path = '"' .. path .. '"'
   vim.fn.setreg("+", path)
   vim.notify("Copied path: " .. path)
-end, { desc = "Copy realpath of current file to system clipboard" })
+end
+
+vim.keymap.set("n", "<leader>rp", copy_realpath, { desc = "Copy realpath of current file to system clipboard" })
