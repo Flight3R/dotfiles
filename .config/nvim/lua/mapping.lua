@@ -10,6 +10,8 @@ vim.keymap.set('n', 'C', '"_C')
 -- also for visual mode
 vim.keymap.set('v', 'c', '"_c')
 vim.keymap.set('v', 'x', '"_x')
+-- keep the pasted text in the unnamed register when replacing a selection
+vim.keymap.set('x', 'p', '"_dP', { desc = "Paste without overwriting the unnamed register" })
 -- copy to system clipboard
 vim.keymap.set("v", "<leader>y", '"+y', { desc = "Copy selected area to system clipboard" })
 vim.keymap.set("n", "<leader>Y", ":%yank +<CR>", { desc = "Copy whole file to system clipboard" })
