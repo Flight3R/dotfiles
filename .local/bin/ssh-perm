@@ -1,0 +1,4 @@
+#!/bin/zsh
+echo "Setting SELinux sshd session permissive..."
+sudo semanage permissive -a sshd_session_t
+echo "Done."

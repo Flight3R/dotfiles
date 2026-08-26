@@ -104,7 +104,7 @@ alias dfpl="dotfiles pull"
 alias dfbc="dotfiles branch --show-current"
 
 # MISC ALIASES
-alias cdrepos="cd ~/repos"
+alias cdr="cd ~/repos"
 alias se="source venv/bin/activate"
 alias ip="ip -c"
 # -G color output, -F slash after pathname, -q force printing ? for non graphic chars
